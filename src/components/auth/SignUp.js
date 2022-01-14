@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
+import { Redirect, withRouter } from 'react-router-dom'
+import AppContext from '../../context/context'
+import { SET_TOKEN, SET_USER_ID } from '../../context/action-types'
+import { useHistory } from 'react-router-dom'
 
 import { signUp, signIn } from '../../api/auth'
 import { signUpSuccess, signUpFailure } from '../AutoDismissAlert/messages'
@@ -7,95 +10,89 @@ import { signUpSuccess, signUpFailure } from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-class SignUp extends Component {
-  constructor (props) {
-    super(props)
+const SignUp = () => {
+    const { state, dispatch } = useContext(AppContext)
+    const { loggedIn } = state
+    const history = useHistory()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [passConfirm, setPassConfirm] = useState('')
 
-    this.state = {
-      email: '',
-      password: '',
-      passwordConfirmation: ''
-    }
-  }
 
-handleChange = (event) =>
-  this.setState({
-    [event.target.name]: event.target.value
-  })
+    const onSignUp = () => {
+        const apiObj = {
+            email: email,
+            password: password,
+            passwordConfirmation: passConfirm
+        }
+        signUp(apiObj)
+            .then(() => signIn(apiObj))
+            .then((res) => {
+                dispatch({
+                    type: SET_USER_ID,
+                    payload: res.data.user.id
+                })
+                dispatch({
+                    type: SET_TOKEN,
+                    payload: res.data.user.token
+                })
+            })
+            .then(() =>{
+                // success toast here
+            })
+            .then(() => history.push('/'))
+            .catch((error) => {
+                setEmail('')
+                setPassword('')
+                setPassConfirm('')
+                // toast error here
+            })
+        }
 
-onSignUp = (event) => {
-  event.preventDefault()
-
-  const { msgAlert, history, setUser } = this.props
-
-  signUp(this.state)
-    .then(() => signIn(this.state))
-    .then((res) => setUser(res.data.user))
-    .then(() =>
-      msgAlert({
-        heading: 'Sign Up Success',
-        message: signUpSuccess,
-        variant: 'success'
-      })
+    return (
+        loggedIn ? <Redirect to='/' /> :
+        <div className='row'>
+        <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+            <h3>Sign Up</h3>
+            <Form>
+            <Form.Group controlId='email'>
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                required
+                type='email'
+                name='email'
+                value={email}
+                placeholder='Enter email'
+                onChange={(e) => setEmail(e.target.value)}
+                />
+            </Form.Group>
+            <Form.Group controlId='password'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                required
+                name='password'
+                value={password}
+                type='password'
+                placeholder='Password'
+                onChange={(e) => setPassword(e.target.value)}
+                />
+            </Form.Group>
+            <Form.Group controlId='passwordConfirmation'>
+                <Form.Label>Password Confirmation</Form.Label>
+                <Form.Control
+                required
+                name='passwordConfirmation'
+                value={passConfirm}
+                type='password'
+                placeholder='Confirm Password'
+                onChange={(e) => setPassConfirm(e.target.value)}
+                />
+            </Form.Group>
+            <Button onClick={onSignUp} variant='primary' type='button'>Submit</Button>
+            </Form>
+        </div>
+        </div>
     )
-    .then(() => history.push('/'))
-    .catch((error) => {
-      this.setState({ email: '', password: '', passwordConfirmation: '' })
-      msgAlert({
-        heading: 'Sign Up Failed with error: ' + error.message,
-        message: signUpFailure,
-        variant: 'danger'
-      })
-    })
 }
 
-render () {
-  const { email, password, passwordConfirmation } = this.state
-
-  return (
-    <div className='row'>
-      <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-        <h3>Sign Up</h3>
-        <Form onSubmit={this.onSignUp}>
-          <Form.Group controlId='email'>
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              required
-              type='email'
-              name='email'
-              value={email}
-              placeholder='Enter email'
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId='password'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              required
-              name='password'
-              value={password}
-              type='password'
-              placeholder='Password'
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId='passwordConfirmation'>
-            <Form.Label>Password Confirmation</Form.Label>
-            <Form.Control
-              required
-              name='passwordConfirmation'
-              value={passwordConfirmation}
-              type='password'
-              placeholder='Confirm Password'
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Button variant='primary' type='submit'>Submit</Button>
-        </Form>
-      </div>
-    </div>
-  )
-}
-}
-
-export default withRouter(SignUp)
+export default SignUp

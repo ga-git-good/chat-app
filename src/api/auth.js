@@ -28,22 +28,22 @@ export const signIn = (credentials) => {
   })
 }
 
-export const signOut = (user) => {
+export const signOut = (token) => {
   return axios({
     url: apiUrl + '/sign-out/',
     method: 'DELETE',
     headers: {
-      Authorization: `Bearer ${user.token}`
+      Authorization: `Bearer ${token}`
     }
   })
 }
 
-export const changePassword = (passwords, user) => {
+export const changePassword = (passwords, token) => {
   return axios({
     url: apiUrl + '/change-password/',
     method: 'PATCH',
     headers: {
-      Authorization: `Bearer ${user.token}`
+      Authorization: `Bearer ${token}`
     },
     data: {
       passwords: {
