@@ -1,6 +1,5 @@
-import React, { Component, Fragment, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import { Route } from 'react-router-dom'
-import { v4 as uuid } from 'uuid'
 import AppContext from './context/context'
 import reducer from './context/reducer'
 
@@ -20,20 +19,16 @@ const initialState = {
 const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
-  setUser = (user) => this.setState({ user })
-
-  clearUser = () => this.setState({ user: null })
-
     return (
-			<>
-				<Header />
-				<main className='container'>
-					<Route path='/sign-up' component={SignUp} />
-					<Route path='/sign-in' component={SignIn} />
-					<Route path='/sign-out' component={SignOut} />
-					<Route path='/change-password' component={ChangePassword} />
-				</main>
-			</>
+				<AppContext.Provider value={{ state, dispatch }}>
+					<Header />
+					<main className='container'>
+						<Route path='/sign-up' component={SignUp} />
+						<Route path='/sign-in' component={SignIn} />
+						<Route path='/sign-out' component={SignOut} />
+						<Route path='/change-password' component={ChangePassword} />
+					</main>
+				</AppContext.Provider>
 		)
   }
 
