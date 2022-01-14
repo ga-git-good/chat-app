@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import React, { Component, useContext, useState } from 'react'
+import { Redirect, withRouter } from 'react-router-dom'
+import AppContext from '../../context/context'
+import { SET_TOKEN, SET_USER_ID } from '../../context/action-types'
 
 import { signIn } from '../../api/auth'
 import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
@@ -7,54 +9,51 @@ import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-class SignIn extends Component {
-  constructor (props) {
-    super(props)
+const SignIn = () => {
+    const { state, dispatch } = useContext(AppContext)
+    const { loggedIn } = state
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    this.state = {
-      email: '',
-      password: ''
+    const onSignIn = () => {
+
+    const signInObj = {
+        email: email,
+        password: password
     }
-  }
 
-handleChange = (event) =>
-  this.setState({
-    [event.target.name]: event.target.value
-  })
-
-onSignIn = (event) => {
-  event.preventDefault()
-
-  const { msgAlert, history, setUser } = this.props
-
-  signIn(this.state)
-    .then((res) => setUser(res.data.user))
-    .then(() =>
-      msgAlert({
-        heading: 'Sign In Success',
-        message: signInSuccess,
-        variant: 'success'
-      })
-    )
+  signIn(signInObj)
+    .then((res) => {
+        console.log('login response: ')
+        console.log(res.data)
+        dispatch({
+            type: SET_USER_ID,
+            payload: res.data.user.id
+        })
+        dispatch({
+            type: SET_TOKEN,
+            payload: res.data.user.token
+        })
+       
+    })
+    .then(() =>{
+      // toast alert here
+    })
     .then(() => history.push('/'))
     .catch((error) => {
-      this.setState({ email: '', password: '' })
-      msgAlert({
-        heading: 'Sign In Failed with error: ' + error.message,
-        message: signInFailure,
-        variant: 'danger'
-      })
+      setEmail('')
+      setPassword('')
+      //error toast here
     })
 }
 
-render () {
-  const { email, password } = this.state
 
   return (
+      loggedIn ? <Redirect to='/' /> :
     <div className='row'>
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
         <h3>Sign In</h3>
-        <Form onSubmit={this.onSignIn}>
+        <Form >
           <Form.Group controlId='email'>
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -63,7 +62,7 @@ render () {
               name='email'
               value={email}
               placeholder='Enter email'
-              onChange={this.handleChange}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId='password'>
@@ -74,15 +73,14 @@ render () {
               value={password}
               type='password'
               placeholder='Password'
-              onChange={this.handleChange}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          <Button variant='primary' type='submit'>Submit</Button>
+          <Button onClick={onSignIn} variant='primary' type='button'>Submit</Button>
         </Form>
       </div>
     </div>
   )
 }
-}
 
-export default withRouter(SignIn)
+export default SignIn

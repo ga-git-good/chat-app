@@ -1,28 +1,35 @@
-import { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-
+import { useContext, useEffect } from 'react'
+import { useHistory, Redirect } from 'react-router-dom'
+import AppContext from '../../context/context'
+import { ALL_TYPES } from '../../context/action-types'
 import { signOut } from '../../api/auth'
-import { signOutSuccess } from '../AutoDismissAlert/messages'
 
-class SignOut extends Component {
-  componentDidMount () {
-    const { msgAlert, history, clearUser, user } = this.props
 
-    signOut(user)
-      .finally(() =>
-        msgAlert({
-          heading: 'Signed Out Successfully',
-          message: signOutSuccess,
-          variant: 'success'
-        })
-      )
-      .finally(() => history.push('/'))
-      .finally(() => clearUser())
-  }
+const SignOut = () => {
+    const { state, dispatch } = useContext(AppContext)
+    const history = useHistory()
+    const { loggedIn, token } = state
 
-  render () {
-    return ''
-  }
+    useEffect(() => {
+        if (!loggedIn) {
+            return
+        }
+        signOut(token)
+            .finally(() => {
+                // success toast here
+            })
+            .finally(() => history.push('/'))
+            .finally(() => {
+                ALL_TYPES.forEach((type) => {
+                    dispatch({
+                        action: type,
+                        payload: null,
+                    })
+                })
+            })
+    }, [])
+
+    return !loggedIn ? <Redirect to='/' /> : null
 }
 
-export default withRouter(SignOut)
+export default SignOut
