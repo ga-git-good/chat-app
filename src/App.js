@@ -27,6 +27,7 @@ const App = () => {
 						<Route path='/sign-in' component={SignIn} />
 						<Route path='/sign-out' component={SignOut} />
 						<Route path='/change-password' component={ChangePassword} />
+						<Route path='/rooms' component={Rooms} />
 					</main>
 				</AppContext.Provider>
 		)
