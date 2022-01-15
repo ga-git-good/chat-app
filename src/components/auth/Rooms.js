@@ -5,7 +5,7 @@ import AppContext from "../../context/context";
 
 const Rooms = () => {
   const { state, dispatch } = useContext(AppContext)
-  const { loggedIn, userId } = state
+  const { loggedIn, userId, token } = state
 
   const [roomName, setRoomName] = useState('')
   const [socket, setSocket] = useState(null)
@@ -16,10 +16,13 @@ const Rooms = () => {
       return
     }
     console.log('connecting socket')
-    const socket = io('localhost:3040', { 
-      withCredentials: false,
-      query: {'query': 'value'}
-    })
+    const socket = io('localhost:3040', {
+			withCredentials: false,
+			query: {
+				token:
+					'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWUyMTc4NzZjMTljYzY5ZDgyZDExNjEiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.-I9JjuMXy-aLCKXoi4R0HDYwi-FuwxveypIUtdSLnDI',
+			},
+		})
     socket.on('connect', () => {
       console.log('connected!')
       socket.emit('join', { roomId: 123 })
