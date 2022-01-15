@@ -13,6 +13,7 @@ import Rooms from './components/auth/Rooms'
 const initialState = {
     loggedIn: false,
     userId: null,
+		userName: null,
     token: null,
     shouldSaveState: false
 }
