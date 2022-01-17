@@ -1,7 +1,7 @@
 import React, { Component, useContext, useState } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 import AppContext from '../../context/context'
-import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN } from '../../context/action-types'
+import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN, SET_USERNAME } from '../../context/action-types'
 
 import { signIn } from '../../api/auth'
 import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
@@ -25,7 +25,7 @@ const SignIn = () => {
   signIn(signInObj)
     .then((res) => {
         // console.log('login response: ')
-        console.log(res.data, 'state: ', state)
+        // console.log(res.data, 'state: ', state)
         dispatch({
             type: SET_USER_ID,
             payload: res.data.user._id
@@ -37,6 +37,10 @@ const SignIn = () => {
         dispatch({
             type: SET_SIGNEDIN,
             payload: true
+        })
+        dispatch({
+            type: SET_USERNAME,
+            payload: res.data.user.userName
         })
     })
     .then(() =>{

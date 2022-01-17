@@ -48,14 +48,14 @@ const Header = () => {
   // </Navbar>
   // )
   return (
-  <Container>
+  <Container className='main-content-window'>
     <Row>
       <Col className='brand'>
         <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>ChatGA</Link>
       </Col>
       <Col>
         {user.loggedIn && (
-          <span className='navbar-text mr-2'>Welcome, {user.email}</span>
+          <span className='navbar-text mr-2'>Welcome, {user.userName}</span>
         )}
         {alwaysOptions}
         {user.loggedIn ? authenticatedOptions : unauthenticatedOptions}
