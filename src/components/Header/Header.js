@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link, NavLink } from 'react-router-dom'
+import AppContext from '../../context/context'
+import { Container, Row, Col, Modal, Button } from 'react-bootstrap'
 
 const authenticatedOptions = (
   <Fragment>
@@ -23,22 +25,44 @@ const alwaysOptions = (
   </Fragment>
 )
 
-const Header = ({ user }) => (
-  <Navbar bg='primary' variant='dark' expand='md'>
-    <Navbar.Brand>
-      <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>ChatGA</Link>
-    </Navbar.Brand>
-    <Navbar.Toggle aria-controls='basic-navbar-nav' />
-    <Navbar.Collapse id='basic-navbar-nav'>
-      <Nav className='ml-auto'>
-        {user && (
+const Header = () => {
+  const { state, dispatch } = useContext(AppContext)
+  console.log(state)
+  const user = state
+  // return (
+
+  // <Navbar bg='primary' variant='dark' expand='md'>
+  //   <Navbar.Brand>
+  //     <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>ChatGA</Link>
+  //   </Navbar.Brand>
+  //   <Navbar.Toggle aria-controls='basic-navbar-nav' />
+  //   <Navbar.Collapse id='basic-navbar-nav'>
+  //     <Nav className='ml-auto'>
+  //       {user.loggedIn && (
+  //         <span className='navbar-text mr-2'>Welcome, {user.email}</span>
+  //       )}
+  //       {alwaysOptions}
+  //       {user.loggedIn ? authenticatedOptions : unauthenticatedOptions}
+  //     </Nav>
+  //   </Navbar.Collapse>
+  // </Navbar>
+  // )
+  return (
+  <Container>
+    <Row>
+      <Col className='brand'>
+        <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>ChatGA</Link>
+      </Col>
+      <Col>
+        {user.loggedIn && (
           <span className='navbar-text mr-2'>Welcome, {user.email}</span>
         )}
         {alwaysOptions}
-        {user ? authenticatedOptions : unauthenticatedOptions}
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
-)
+        {user.loggedIn ? authenticatedOptions : unauthenticatedOptions}
+      </Col>
+    </Row>
+  </Container>
+  )
+}
 
 export default Header

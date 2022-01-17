@@ -1,7 +1,7 @@
 import React, { Component, useContext, useState } from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 import AppContext from '../../context/context'
-import { SET_TOKEN, SET_USER_ID } from '../../context/action-types'
+import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN } from '../../context/action-types'
 
 import { signIn } from '../../api/auth'
 import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
@@ -24,17 +24,20 @@ const SignIn = () => {
 
   signIn(signInObj)
     .then((res) => {
-        console.log('login response: ')
-        console.log(res.data)
+        // console.log('login response: ')
+        console.log(res.data, 'state: ', state)
         dispatch({
             type: SET_USER_ID,
-            payload: res.data.user.id
+            payload: res.data.user._id
         })
         dispatch({
             type: SET_TOKEN,
             payload: res.data.user.token
         })
-       
+        dispatch({
+            type: SET_SIGNEDIN,
+            payload: true
+        })
     })
     .then(() =>{
       // toast alert here
