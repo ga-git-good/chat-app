@@ -14,45 +14,47 @@ const SignIn = () => {
     const { loggedIn } = state
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [modalShow, setModalShow] = useState(false)
 
-    const onSignIn = () => {
+    const onSignIn = (event) => {
+      event.preventDefault()
 
-    const signInObj = {
-        userName: username,
-        password: password
+      const signInObj = {
+          userName: username,
+          password: password
+      }
+
+      signIn(signInObj)
+        .then((res) => {
+            // console.log('login response: ')
+            // console.log(res.data, 'state: ', state)
+            dispatch({
+                type: SET_USER_ID,
+                payload: res.data.user._id
+            })
+            dispatch({
+                type: SET_TOKEN,
+                payload: res.data.user.token
+            })
+            dispatch({
+                type: SET_SIGNEDIN,
+                payload: true
+            })
+            dispatch({
+                type: SET_USERNAME,
+                payload: res.data.user.userName
+            })
+        })
+        .then(() =>{
+          // toast alert here
+        })
+        .then(() => history.push('/'))
+        .catch((error) => {
+          setUsername('')
+          setPassword('')
+          //error toast here
+        })
     }
-
-  signIn(signInObj)
-    .then((res) => {
-        // console.log('login response: ')
-        // console.log(res.data, 'state: ', state)
-        dispatch({
-            type: SET_USER_ID,
-            payload: res.data.user._id
-        })
-        dispatch({
-            type: SET_TOKEN,
-            payload: res.data.user.token
-        })
-        dispatch({
-            type: SET_SIGNEDIN,
-            payload: true
-        })
-        dispatch({
-            type: SET_USERNAME,
-            payload: res.data.user.userName
-        })
-    })
-    .then(() =>{
-      // toast alert here
-    })
-    .then(() => history.push('/'))
-    .catch((error) => {
-      setUsername('')
-      setPassword('')
-      //error toast here
-    })
-}
 
 
   return (
@@ -60,7 +62,7 @@ const SignIn = () => {
     <div className='row'>
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
         <h3>Sign In</h3>
-        <Form >
+        <Form onSubmit={onSignIn}>
           <Form.Group controlId='username'>
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -83,7 +85,7 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          <Button onClick={onSignIn} variant='primary' type='button'>Submit</Button>
+          <Button variant='primary' type='submit'>Submit</Button>
         </Form>
       </div>
     </div>

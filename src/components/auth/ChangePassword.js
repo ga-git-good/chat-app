@@ -68,4 +68,4 @@ const ChangePassword = () => {
     )
 }
 
-export default changePassword
+export default ChangePassword
