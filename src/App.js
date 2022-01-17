@@ -29,7 +29,8 @@ const App = () => {
 						<Route path='/sign-out' component={SignOut} />
 						<Route path='/change-password' component={ChangePassword} />
 					</main>
-					<MainContent />
+					{state.loggedIn ? <MainContent /> : ''}
+					
 				</AppContext.Provider>
 		)
   }
