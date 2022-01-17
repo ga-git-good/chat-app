@@ -12,13 +12,13 @@ import Button from 'react-bootstrap/Button'
 const SignIn = () => {
     const { state, dispatch } = useContext(AppContext)
     const { loggedIn } = state
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const onSignIn = () => {
 
     const signInObj = {
-        email: email,
+        userName: username,
         password: password
     }
 
@@ -41,7 +41,7 @@ const SignIn = () => {
     })
     .then(() => history.push('/'))
     .catch((error) => {
-      setEmail('')
+      setUsername('')
       setPassword('')
       //error toast here
     })
@@ -54,15 +54,15 @@ const SignIn = () => {
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
         <h3>Sign In</h3>
         <Form >
-          <Form.Group controlId='email'>
-            <Form.Label>Email address</Form.Label>
+          <Form.Group controlId='username'>
+            <Form.Label>Username</Form.Label>
             <Form.Control
               required
-              type='email'
-              name='email'
-              value={email}
-              placeholder='Enter email'
-              onChange={(e) => setEmail(e.target.value)}
+              type='username'
+              name='username'
+              value={username}
+              placeholder='Enter username'
+              onChange={(e) => setUsername(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId='password'>
