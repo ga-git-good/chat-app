@@ -4,6 +4,7 @@ import AppContext from './context/context'
 import reducer from './context/reducer'
 
 import Header from './components/Header/Header'
+import MainContent from './components/Main/MainContent'
 import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
@@ -28,6 +29,7 @@ const App = () => {
 						<Route path='/sign-out' component={SignOut} />
 						<Route path='/change-password' component={ChangePassword} />
 					</main>
+					<MainContent />
 				</AppContext.Provider>
 		)
   }
