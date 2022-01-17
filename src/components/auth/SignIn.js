@@ -14,7 +14,6 @@ const SignIn = () => {
     const { loggedIn } = state
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [modalShow, setModalShow] = useState(false)
 
     const onSignIn = (event) => {
       event.preventDefault()
