@@ -14,7 +14,8 @@ const initialState = {
     loggedIn: false,
     userId: null,
     token: null,
-    shouldSaveState: false
+    shouldSaveState: false,
+		userName: null
 }
 
 const App = () => {
