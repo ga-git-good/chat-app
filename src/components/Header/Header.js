@@ -29,36 +29,43 @@ const Header = () => {
   const { state, dispatch } = useContext(AppContext)
   console.log(state)
   const user = state
-  // return (
 
-  // <Navbar bg='primary' variant='dark' expand='md'>
-  //   <Navbar.Brand>
-  //     <Link to='/' style={{ color: '#FFF', textDecoration: 'none' }}>ChatGA</Link>
-  //   </Navbar.Brand>
-  //   <Navbar.Toggle aria-controls='basic-navbar-nav' />
-  //   <Navbar.Collapse id='basic-navbar-nav'>
-  //     <Nav className='ml-auto'>
-  //       {user.loggedIn && (
-  //         <span className='navbar-text mr-2'>Welcome, {user.email}</span>
-  //       )}
-  //       {alwaysOptions}
-  //       {user.loggedIn ? authenticatedOptions : unauthenticatedOptions}
-  //     </Nav>
-  //   </Navbar.Collapse>
-  // </Navbar>
-  // )
   return (
   <Container className='main-content-window'>
+
+    {/* First row - should only contain nav bar and header */}
     <Row>
-      <Col className='brand'>
+      <Col className='brand col-4'>
         <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>ChatGA</Link>
       </Col>
-      <Col>
+      <Col className='top-nav col-7'>
         {user.loggedIn && (
           <span className='navbar-text mr-2'>Welcome, {user.userName}</span>
         )}
         {alwaysOptions}
         {user.loggedIn ? authenticatedOptions : unauthenticatedOptions}
+      </Col>
+    </Row>
+
+    {/* Second row - will contain rooms/DMs as well as main content */}
+    <Row className='top-row'>
+      <Col className='left-side-nav col-2'>
+          <h4>Rooms</h4>
+          <section className='open-rooms'>
+            <a href='#'>Room 1</a>
+          </section>
+      </Col>
+      <Col className='main-content col-9'>
+          <section className='messages-window'>
+            <ul className='messages'>
+              <li>First Message</li>
+              <li>Second Message</li>
+            </ul>
+          </section>
+          <form className='message-input-window'>
+            <input className='message-input' />
+            <button className='send-message'>Send</button>
+          </form>
       </Col>
     </Row>
   </Container>
