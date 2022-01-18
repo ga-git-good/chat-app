@@ -4,6 +4,7 @@ import {
     SET_TOKEN,
     SET_SIGNEDIN,
     SAVE_STATE,
+    SET_ROOMS_ID
 } from './action-types'
 
 export default (state, action) => {
