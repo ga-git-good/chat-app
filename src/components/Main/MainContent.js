@@ -1,10 +1,28 @@
-import React, { useContext } from 'react' 
+import React, { useContext, useEffect, useState } from 'react' 
 import AppContext from '../../context/context'
 import { Container, Row, Col } from 'react-bootstrap'
-import Room from '../auth/Rooms'
+import Input from './MsgInput'
+import Message from './MessageJSX'
 
 const MainContent = () => {
   const { state, dispatch } = useContext(AppContext)
+  const [messages, setMessages] = useState([])
+  const [components, setComponents] = useState([])
+
+  const newMessage = (msg) => {
+    setMessages([...messages, msg])
+  }
+
+  useEffect(() => {
+    setComponents(messages.map(message => (
+      <Message 
+        userName={message.userName}
+        image={message.pfpUrl}
+        timestamp={message.timestamp}
+        text={message.message}
+      />
+    )))
+  }, [messages])
 
   return (
     <Container>
@@ -19,11 +37,10 @@ const MainContent = () => {
         <Col className='main-content col-9'>
             <section className='messages-window'>
               <ul className='messages'>
-                <li>First Message</li>
-                <li>Second Message</li>
+                {components}
               </ul>
             </section>
-            <Room />
+            <Input received={newMessage} />
             {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>
