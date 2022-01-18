@@ -10,23 +10,24 @@ const Message = (props) => {
 		<div className='message-layout'>
 			<img col='1' className='userImage' src={props.image} />
 			<li col='2'>
-				<a><strong>{props.userName}</strong> <a style={timeStampStyle}>{props.timestamp}</a>:</a> <br />
+				<strong>{props.userName}</strong> <a style={timeStampStyle}>{props.timestamp}</a>:
+				<br />
 				<section className='message-text'>{props.text}</section>
-				<a>
-					<i class='fab fa-thumbs-up'></i>
+				{/* <a>
+					<i className='fab fa-thumbs-up'></i>
 				</a>
 				<a>
-					<i class='fab fa-thumbs-down'></i>
+					<i className='fab fa-thumbs-down'></i>
 				</a>
 				<a>
-					<i class='fab fa-smile'></i>
+					<i className='fab fa-smile'></i>
 				</a>
 				<a>
-					<i class='fab fa-heart'></i>
+					<i className='fab fa-heart'></i>
 				</a>
 				<a>
-					<i class='fab fa-sad-tear'></i>
-				</a>
+					<i className='fab fa-sad-tear'></i>
+				</a> */}
 			</li>
 		</div>
 	)

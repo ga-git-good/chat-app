@@ -67,14 +67,17 @@
 }
 
 .message-text {
-  display: inline-block;
+  display: flex;
   width: 93%;
+  
 }
 
 .messages-window {
   height: 70vh;
   margin: 1rem;
   border: 1px solid black;
+  overflow-y: scroll;
+  
 }
 
 .userImage {
