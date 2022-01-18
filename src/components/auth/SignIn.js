@@ -1,13 +1,14 @@
-import React, { Component, useContext, useState } from 'react'
-import { Redirect, withRouter } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Redirect, useHistory } from 'react-router-dom'
 import AppContext from '../../context/context'
+
+import { toast } from 'react-toastify'
+
 import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN, SET_USERNAME } from '../../context/action-types'
 
 import { signIn } from '../../api/auth'
-import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
 
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import { Form, Button } from 'react-bootstrap'
 
 const SignIn = () => {
     const { state, dispatch } = useContext(AppContext)
