@@ -15,6 +15,7 @@ const SignUp = () => {
     const { loggedIn } = state
     const history = useHistory()
     const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [passConfirm, setPassConfirm] = useState('')
 
@@ -22,6 +23,7 @@ const SignUp = () => {
     const onSignUp = () => {
         const apiObj = {
             email: email,
+            userName: username,
             password: password,
             passwordConfirmation: passConfirm
         }
@@ -43,6 +45,7 @@ const SignUp = () => {
             .then(() => history.push('/'))
             .catch((error) => {
                 setEmail('')
+                setUsername('')
                 setPassword('')
                 setPassConfirm('')
                 // toast error here
@@ -64,6 +67,17 @@ const SignUp = () => {
                 value={email}
                 placeholder='Enter email'
                 onChange={(e) => setEmail(e.target.value)}
+                />
+            </Form.Group>
+            <Form.Group controlId='username'>
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                required
+                type='username'
+                name='username'
+                value={username}
+                placeholder='Enter username'
+                onChange={(e) => setUsername(e.target.value)}
                 />
             </Form.Group>
             <Form.Group controlId='password'>

@@ -1,1 +1,59 @@
 @import '~bootstrap/scss/bootstrap';
+
+.main-content-window {
+  border: 1px solid black;
+}
+
+.brand {
+  border: 1px solid black;
+  margin: 1rem;
+}
+
+.top-row {
+  margin: 0 auto;
+}
+
+.top-nav {
+  display: flex;
+  align-items: end;
+  justify-content: right;
+  padding: 0;
+  margin: 1rem;
+  border: 1px solid black;
+}
+
+.nav-link {
+  border: 1px solid black;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 1rem !important;
+}
+
+.left-side-nav {
+  height: 30vh;
+  margin: 1rem;
+  border: 1px solid black;
+}
+
+.main-content {
+  margin: 1rem;
+  border: 1px solid black;
+}
+
+.messages-window {
+  height: 70vh;
+  margin: 1rem;
+  border: 1px solid black;
+}
+
+.message-input-window {
+  margin: 1rem;
+  border: 1px solid black;
+}
+
+.message-input {
+  width: 80%;
+  margin: 0.5rem;
+}

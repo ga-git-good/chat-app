@@ -2,6 +2,7 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const signUp = (credentials) => {
+  console.log(credentials)
   return axios({
     method: 'POST',
     url: apiUrl + '/sign-up/',
@@ -9,7 +10,8 @@ export const signUp = (credentials) => {
       credentials: {
         email: credentials.email,
         password: credentials.password,
-        password_confirmation: credentials.passwordConfirmation
+        password_confirmation: credentials.passwordConfirmation,
+        userName: credentials.userName
       }
     }
   })
@@ -21,7 +23,7 @@ export const signIn = (credentials) => {
     method: 'POST',
     data: {
       credentials: {
-        email: credentials.email,
+        userName: credentials.userName,
         password: credentials.password
       }
     }

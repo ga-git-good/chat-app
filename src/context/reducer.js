@@ -1,4 +1,5 @@
 import {
+    SET_USERNAME,
     SET_USER_ID,
     SET_TOKEN,
     SET_SIGNEDIN,
@@ -7,6 +8,10 @@ import {
 
 export default (state, action) => {
     switch (action.type) {
+        case SET_USERNAME:
+            return action.payload === null
+                ? {...state, userName: null}
+                : {...state, userName: action.payload}
         case SET_USER_ID:
             return action.payload === null
                 ? {...state, userId: null}
