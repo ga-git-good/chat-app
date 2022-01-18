@@ -20,7 +20,7 @@ const Rooms = () => {
 			withCredentials: false,
 			query: {
 				token:
-					'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWUyMTc4NzZjMTljYzY5ZDgyZDExNjEiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.-I9JjuMXy-aLCKXoi4R0HDYwi-FuwxveypIUtdSLnDI',
+					token,
 			},
 		})
     socket.on('connect', () => {
