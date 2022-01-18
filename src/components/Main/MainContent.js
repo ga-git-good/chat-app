@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, DropdownButton, ButtonGroup } from 'react-bo
 import Input from './MsgInput'
 import Message from './MessageJSX'
 import createRoom from '../../api/CreateRoom'
+import showRooms from '../../api/ShowRooms'
 import { SET_ROOMS_ID } from '../../context/action-types'
 
 const AlwaysScrollToBottom = () => {
@@ -21,23 +22,44 @@ const MainContent = () => {
   const [components, setComponents] = useState([])
   const [newMessageObj, setNewMessageObj] = useState(null)
   const [roomName, setRoomName] = useState('')
-  const { rooms } = state
+  const { rooms, userId, token } = state
   const [roomsJSX, setRoomsJSX] = useState(null)
 
   useEffect(() => {
     if (rooms) {
       console.log(rooms)
       setRoomsJSX(rooms.map(room => (
-        <Link to={`/${room._id}`}>{`${room.name}`}</Link>
+        <li key={`${room._id}`}>
+          <Link to={`/${room._id}`}>{`${room.name}`}</Link>
+        </li>
       )))
     }
   }, [rooms])
+
+  useEffect(async () => {
+    let newArray = []
+    const response = await showRooms(token)
+    const existingRooms = response.data.room
+    console.log('existing rooms: ', existingRooms)
+    if (!rooms) {
+      existingRooms.forEach(existingRoom => {
+        if (existingRoom.validUsers.includes(userId)) {
+          newArray.push(existingRoom)
+        }
+      })
+    }
+    console.log(newArray)
+    dispatch({
+      type: SET_ROOMS_ID,
+      payload: newArray
+    })
+  }, [])
 
   const onCreateRoom = async (event) => {
     event.preventDefault()
     let newArray = []
     console.log(roomName, state.userId)
-    const room = await createRoom(roomName, state.userId, state.token)
+    const room = await createRoom(roomName, userId, token)
     if (rooms.length > 0) {
       newArray = [...rooms]
       newArray.push(room.data.room)
@@ -116,7 +138,9 @@ const MainContent = () => {
             <Row>
               {/* TODO: Make this into its own component */}
               <section className='open-rooms'>
-                {roomsJSX}
+                <ul>
+                  {roomsJSX}
+                </ul>
               </section>
             </Row>
         </Col>
