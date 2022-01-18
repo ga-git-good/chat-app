@@ -1,4 +1,5 @@
 import {
+    SET_USERNAME,
     SET_USER_ID,
     SET_TOKEN,
     SET_SIGNEDIN,

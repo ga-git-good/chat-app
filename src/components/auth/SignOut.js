@@ -18,15 +18,16 @@ const SignOut = () => {
             .finally(() => {
                 // success toast here
             })
-            .finally(() => history.push('/'))
             .finally(() => {
                 ALL_TYPES.forEach((type) => {
+                    console.log(type)
                     dispatch({
-                        action: type,
+                        type: type,
                         payload: null,
                     })
                 })
             })
+            .finally(() => history.push('/'))
     }, [])
 
     return !loggedIn ? <Redirect to='/' /> : null
