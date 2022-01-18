@@ -42,10 +42,15 @@
   border: 1px solid black;
 }
 
-.messages-window {
-  height: 70vh;
-  margin: 1rem;
-  border: 1px solid black;
+.messages {
+  list-style-type: none;
+  display: block;
+  columns: 1;
+}
+
+.message-input {
+  width: 80%;
+  margin: 0.5rem;
 }
 
 .message-input-window {
@@ -53,7 +58,32 @@
   border: 1px solid black;
 }
 
-.message-input {
-  width: 80%;
-  margin: 0.5rem;
+.message-layout {
+  display: inline-block;
+  justify-content: left;
+  margin-left: -1.5rem;
+  margin-top: .5rem;
+  width: 100%;
+}
+
+.message-text {
+  display: flex;
+  width: 93%;
+  
+}
+
+.messages-window {
+  height: 70vh;
+  margin: 1rem;
+  border: 1px solid black;
+  overflow-y: scroll;
+  
+}
+
+.userImage {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100%;
+  margin-right: 1rem;
+  float: left;
 }
