@@ -11,6 +11,12 @@ const Rooms = () => {
   const [socket, setSocket] = useState(null)
   const [connected, setConnected] = useState(false)
 
+  const receivedMessage = (msg) => {
+    // send the message off to be rendered
+    console.log('received message')
+    console.log(msg)
+  }
+
   useEffect(() => {
     if (connected) {
       return
@@ -25,7 +31,15 @@ const Rooms = () => {
 		})
     socket.on('connect', () => {
       console.log('connected!')
-      socket.emit('join', { roomId: 123 })
+    })
+    socket.on('loggedin', (res) => {
+      if (res) {
+        socket.emit('join', { roomId: 123 })
+        socket.on('message', receivedMessage)
+      } else {
+        console.log('failed to log in')
+        alert('failed to log in')
+      }
     })
     setSocket(socket)
     setConnected(true)
@@ -42,7 +56,10 @@ const Rooms = () => {
       return
     }
     console.log('emitting message: ', roomName)
-    socket.emit('send-message', {message: roomName})
+    socket.emit('send-message', {
+      message: roomName,
+      roomId: 123
+    })
     setRoomName('')
   }
 
