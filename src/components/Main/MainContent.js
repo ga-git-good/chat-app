@@ -20,11 +20,11 @@ const MainContent = () => {
   const [components, setComponents] = useState([])
   const [newMessageObj, setNewMessageObj] = useState(null)
   const [roomName, setRoomName] = useState('')
-  const { roomArray } = state
+  const { rooms } = state
   // let roomJSX
 
-  if (state.rooms) {
-    const roomJSX = state.rooms.map(room => (
+  if (rooms) {
+    const roomJSX = rooms.map(room => (
       <Link to={`/${room._id}`}>{`${room.name}`}</Link>
     ))
   }
@@ -33,8 +33,12 @@ const MainContent = () => {
     event.preventDefault()
     console.log(roomName, state.userId)
     const room = await createRoom(roomName, state.userId, state.token)
-    const newArray = [...roomArray]
-    newArray.push(newRoom)
+    if (rooms.length > 0) {
+      const newArray = [...rooms]
+      newArray.push(room.data.room)
+    } else {
+      const newArray = [room]
+    }
     dispatch({
       type: SET_ROOMS_ID,
       payload: newArray
