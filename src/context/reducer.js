@@ -16,11 +16,19 @@ export default (state, action) => {
             return action.payload === null
                 ? {...state, userId: null}
                 : {...state, userId: action.payload}
+        case SET_USER_ID:
+            return action.payload === null
+                ? {...state, userId: null}
+                : {...state, userId: action.payload}
         case SET_TOKEN:
             return action.payload === null
                 ? {...state, token: null}
                 : {...state, token: action.payload}
         case SET_SIGNEDIN:
+            return action.payload === null
+                ? {...state, loggedIn: false}
+                : {...state, loggedIn: action.payload}
+        case SET_ROOMS_ID:
             return action.payload === null
                 ? {...state, loggedIn: false}
                 : {...state, loggedIn: action.payload}
