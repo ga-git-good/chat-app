@@ -1,6 +1,7 @@
 import React, { useContext } from 'react' 
 import AppContext from '../../context/context'
 import { Container, Row, Col } from 'react-bootstrap'
+import Room from '../auth/Rooms'
 
 const MainContent = () => {
   const { state, dispatch } = useContext(AppContext)
@@ -22,10 +23,11 @@ const MainContent = () => {
                 <li>Second Message</li>
               </ul>
             </section>
-            <form className='message-input-window'>
+            <Room />
+            {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>
-            </form>
+            </form> */}
         </Col>
       </Row>
     </Container>

@@ -36,7 +36,8 @@ const Rooms = () => {
     return
   }
 
-  const sendMessage = () => {
+  const sendMessage = (event) => {
+    event.preventDefault()
     if (!socket) {
       return
     }
@@ -46,10 +47,10 @@ const Rooms = () => {
   }
 
   return (
-		<div>
-			<input value={roomName} onChange={(e) => setRoomName(e.target.value)} />
-			<button type='button' onClick={sendMessage} />
-		</div>
+		<form className='message-input-window' onSubmit={sendMessage}>
+			<input value={roomName} onChange={(e) => setRoomName(e.target.value)} className='message-input' />
+			<button type='submit' className='send-message'>Send</button>
+		</form>
 	)
   // Version requiring auth:
   // return loggedIn

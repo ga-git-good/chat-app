@@ -4,7 +4,6 @@ import {
     SET_TOKEN,
     SET_SIGNEDIN,
     SAVE_STATE,
-    SET_USERNAME
 } from './action-types'
 
 export default (state, action) => {
