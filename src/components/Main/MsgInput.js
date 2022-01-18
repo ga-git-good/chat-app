@@ -5,7 +5,7 @@ import AppContext from "../../context/context";
 
 const MsgInput = ({received}) => {
   const { state, dispatch } = useContext(AppContext)
-  const { loggedIn, userId, token } = state
+  const { loggedIn, userId, token, userName } = state
 
   const [messageText, setMessageText] = useState('')
   const [socket, setSocket] = useState(null)
@@ -56,6 +56,7 @@ const MsgInput = ({received}) => {
 			roomId: 123,
 			image: 'https://i.imgur.com/wtxZVbP.png',
 			timestamp: new Date().toLocaleString(),
+      userName: userName
 		}
     socket.emit('send-message', msg)
     console.log('sent message: ')
