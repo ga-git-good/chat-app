@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, DropdownButton, ButtonGroup } from 'react-bo
 import Input from './MsgInput'
 import Message from './MessageJSX'
 import createRoom from '../../api/CreateRoom'
+import { SET_ROOMS_ID } from '../../context/action-types'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -21,23 +22,27 @@ const MainContent = () => {
   const [newMessageObj, setNewMessageObj] = useState(null)
   const [roomName, setRoomName] = useState('')
   const { rooms } = state
-  // let roomJSX
+  const [roomsJSX, setRoomsJSX] = useState(null)
 
-  if (rooms) {
-    const roomJSX = rooms.map(room => (
-      <Link to={`/${room._id}`}>{`${room.name}`}</Link>
-    ))
-  }
+  useEffect(() => {
+    if (rooms) {
+      console.log(rooms)
+      setRoomsJSX(rooms.map(room => (
+        <Link to={`/${room._id}`}>{`${room.name}`}</Link>
+      )))
+    }
+  }, [rooms])
 
   const onCreateRoom = async (event) => {
     event.preventDefault()
+    let newArray = []
     console.log(roomName, state.userId)
     const room = await createRoom(roomName, state.userId, state.token)
     if (rooms.length > 0) {
-      const newArray = [...rooms]
+      newArray = [...rooms]
       newArray.push(room.data.room)
     } else {
-      const newArray = [room]
+      newArray = [room.data.room]
     }
     dispatch({
       type: SET_ROOMS_ID,
@@ -111,7 +116,7 @@ const MainContent = () => {
             <Row>
               {/* TODO: Make this into its own component */}
               <section className='open-rooms'>
-                {/* {roomsJSX} */}
+                {roomsJSX}
               </section>
             </Row>
         </Col>
