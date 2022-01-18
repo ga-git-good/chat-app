@@ -9,7 +9,6 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
-import Rooms from './components/auth/Rooms'
 
 const initialState = {
     loggedIn: false,
@@ -31,7 +30,6 @@ const App = () => {
 						<Route path='/sign-in' component={SignIn} />
 						<Route path='/sign-out' component={SignOut} />
 						<Route path='/change-password' component={ChangePassword} />
-						<Route path='/rooms' component={Rooms} />
 					</main>
 					{state.loggedIn ? <MainContent /> : ''}
 					

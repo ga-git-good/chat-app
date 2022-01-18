@@ -51,14 +51,16 @@ const MsgInput = ({received}) => {
     if (!socket) {
       return
     }
-    console.log('emitting message: ', roomName)
-    socket.emit('send-message', {
+    const msg = {
 			message: messageText,
 			roomId: 123,
 			image: 'https://i.imgur.com/wtxZVbP.png',
-      timestamp: (new Date()).toLocaleString()
-		})
-    setRoomName('')
+			timestamp: new Date().toLocaleString(),
+		}
+    socket.emit('send-message', msg)
+    console.log('sent message: ')
+    console.log(msg)
+    setMessageText('')
   }
 
   return (
