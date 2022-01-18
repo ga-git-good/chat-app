@@ -30,8 +30,8 @@ export default (state, action) => {
                 : {...state, loggedIn: action.payload}
         case SET_ROOMS_ID:
             return action.payload === null
-                ? {...state, loggedIn: false}
-                : {...state, loggedIn: action.payload}
+                ? {...state, rooms: null}
+                : {...state, rooms: action.payload}
         case SAVE_STATE:
             return action.payload === null
                 ? {...state, shouldSaveState: false}
