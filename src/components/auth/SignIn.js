@@ -4,7 +4,7 @@ import AppContext from '../../context/context'
 
 import { toast } from 'react-toastify'
 
-import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN, SET_USERNAME } from '../../context/action-types'
+import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN, SET_USERNAME, SET_ROOMS_ID } from '../../context/action-types'
 
 import { signIn } from '../../api/auth'
 
@@ -43,6 +43,10 @@ const SignIn = () => {
             dispatch({
                 type: SET_USERNAME,
                 payload: res.data.user.userName
+            })
+            dispatch({
+                type: SET_ROOMS_ID,
+                payload: res.data.user.rooms
             })
         })
         .then(() =>{
