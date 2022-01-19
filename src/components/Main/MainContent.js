@@ -98,6 +98,8 @@ const MainContent = () => {
   }
 
   const newMessage = (msg) => {
+    console.log('setting new msg')
+    console.log(msg)
     setNewMessageObj(msg)
   }
 
@@ -116,7 +118,6 @@ const MainContent = () => {
     setComponents(messages.map((message, i) => (
       <Message 
         userName={message.userName}
-        image={message.image}
         timestamp={message.timestamp}
         text={message.message}
         key={message.userName + i.toString()}
