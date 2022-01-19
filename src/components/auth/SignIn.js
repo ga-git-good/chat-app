@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import AppContext from '../../context/context'
 
+
+import "../../all-styles/SignIn.css"
 import { toast } from 'react-toastify'
-
 import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN, SET_USERNAME, SET_ROOMS_ID } from '../../context/action-types'
-
 import { signIn } from '../../api/auth'
-
 import { Form, Button } from 'react-bootstrap'
+
 
 const SignIn = () => {
     const { state, dispatch } = useContext(AppContext)
@@ -63,12 +63,12 @@ const SignIn = () => {
 
   return (
       loggedIn ? <Redirect to='/' /> :
-    <div className='row'>
-      <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-        <h3>Sign In</h3>
-        <Form onSubmit={onSignIn}>
+    <div className='row signin-parent-wrapper'>
+      <div className='signin-form-wrapper'>
+        <h3 className="signin-header3">Login</h3>
+        <Form onSubmit={onSignIn} className="signin-form">
           <Form.Group controlId='username'>
-            <Form.Label>Username</Form.Label>
+            <Form.Label className="label-username">Username</Form.Label>
             <Form.Control
               required
               type='username'

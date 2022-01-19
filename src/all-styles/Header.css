@@ -1,0 +1,40 @@
+/*  Header Componenet */
+body {
+  background-color: rgb(244, 247, 250);
+}
+
+ /* Header componenet wrapper div */
+.header-wrapper {
+
+  margin-left: 1rem;
+  letter-spacing: 2rem;
+  font-size: 1.2rem;
+  width: 100vw;
+
+}
+
+/* Logo text span */
+.logo-text {
+  background-color: rgb(89, 83, 253);
+  border-radius: 10px;
+  color: white;
+  padding: 0.4rem;
+  display: inline-block;
+  font-size: 1rem;
+
+}
+
+/* Navbar all links (NavLink) */
+.nav-link {
+  text-decoration: none;
+  color: #777;
+  letter-spacing: 0.16vw;
+}
+
+/* Links wrapper Login and Register */
+.nav-links-group-1 {
+  display: flex;
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+}
