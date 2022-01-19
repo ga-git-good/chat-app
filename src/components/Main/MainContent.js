@@ -4,6 +4,7 @@ import AppContext from '../../context/context'
 import { Container, Row, Col, Form, DropdownButton, ButtonGroup } from 'react-bootstrap'
 import Input from './MsgInput'
 import Message from './MessageJSX'
+import RoomTitle from './RoomTitle'
 import createRoom from '../../api/CreateRoom'
 import showRooms from '../../api/ShowRooms'
 import { SET_ROOMS_ID } from '../../context/action-types'
@@ -26,10 +27,13 @@ const MainContent = () => {
   const [roomsJSX, setRoomsJSX] = useState(null)
   const [currentRoom, setCurrentRoom] = useState('')
   const [changedRoom, setChangedRoom] = useState('')
+  const [currentRoomName, setCurrentRoomName] = useState('')
+  const [changedRoomName, setChangedRoomName] = useState('')
 
-  const changeRoom = (roomId) => {
+  const changeRoom = (roomId, roomName) => {
     console.log('changing room to: ', roomId)
     setChangedRoom(roomId)
+    setChangedRoomName(roomName)
   }
 
   useEffect(() => {
@@ -37,7 +41,9 @@ const MainContent = () => {
     if (changedRoom === currentRoom) {
       return
     } else {
+      setMessages([])
       setCurrentRoom(changedRoom)
+      setCurrentRoomName(changedRoomName)
     }
   }, [changedRoom])
 
@@ -46,7 +52,7 @@ const MainContent = () => {
       console.log(rooms)
       setRoomsJSX(rooms.map(room => (
         <li key={`${room._id}`}>
-          <a href='#' onClick={changeRoom(room._id)}>{`${room.name}`}</a>
+          <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
         </li>
       )))
     }
@@ -57,13 +63,13 @@ const MainContent = () => {
     const response = await showRooms(token)
     const existingRooms = response.data.room
     console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
-    if (!rooms[0]) {
+    if (!rooms || !rooms[0]) {
       existingRooms.forEach(existingRoom => {
         if (existingRoom.validUsers.includes(userId)) {
           newArray.push(existingRoom)
         }
       })
-      setCurrentRoom(newArray[0])
+      // setCurrentRoom(newArray[0]._id)
     }
     console.log(newArray)
     dispatch({
@@ -173,9 +179,12 @@ const MainContent = () => {
             </Row>
         </Col>
         <Col className='main-content col-9'>
+          <Row>
+            <RoomTitle room={currentRoomName} />
+          </Row>
             <section className='messages-window'>
               <ul className='messages'>
-                {components}
+                {currentRoom ? components : 'No room selected. Please join a room to start a conversation!'}
                 <AlwaysScrollToBottom />
               </ul>
             </section>

@@ -50,7 +50,7 @@ const MsgInput = ({received, room}) => {
   // Join a room
   // TODO
   useEffect(() => {
-    console.log('seeing this pop up here as well')
+    console.log('seeing this pop up here as well', room)
     if (room) {
       socket.emit('join', { roomId: room })
     }
@@ -74,10 +74,17 @@ const MsgInput = ({received, room}) => {
   }
 
   return (
-		<form className='message-input-window' onSubmit={sendMessage}>
-			<input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
-			<button type='submit' className='send-message'>Send</button>
-		</form>
+		<>
+			{room !== '' ? 
+      
+        <form className='message-input-window' onSubmit={sendMessage}>
+          <input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
+          <button type='submit' className='send-message'>Send</button>
+        </form>
+        
+       : '' }
+    </>
+		
 	)
   // Version requiring auth:
   // return loggedIn
