@@ -1,39 +1,39 @@
 @import '~bootstrap/scss/bootstrap';
 
-.main-content-window {
-  border: 1px solid black;
-}
 
-.brand {
-  border: 1px solid black;
-  margin: 1rem;
-}
+// .top-row {
+//   margin: 0 auto;
+// }
 
-.top-row {
-  margin: 0 auto;
-}
+// .top-nav {
+//   display: flex;
+//   align-items: flex-end;
+//   justify-content: right;
+//   padding: 0;
+//   margin: 1rem;
+//   border: 1px solid black;
+// }
 
-.top-nav {
-  display: flex;
-  align-items: end;
-  justify-content: right;
-  padding: 0;
-  margin: 1rem;
-  border: 1px solid black;
-}
+// .nav-link {
+//   border: 1px solid black;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: row;
+//   margin: 1rem !important;
+// }
 
-.nav-link {
+.active-users {
+  width: 100%;
+  margin: 0 !important;
+  height: 40vh;
   border: 1px solid black;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin: 1rem !important;
 }
 
 .left-side-nav {
   height: 30vh;
-  margin: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
   border: 1px solid black;
 }
 
@@ -67,14 +67,17 @@
 }
 
 .message-text {
-  display: inline-block;
+  display: flex;
   width: 93%;
+  
 }
 
 .messages-window {
   height: 70vh;
   margin: 1rem;
   border: 1px solid black;
+  overflow-y: scroll;
+  
 }
 
 .userImage {

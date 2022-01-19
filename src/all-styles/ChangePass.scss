@@ -1,0 +1,44 @@
+/*  change pass Component */
+
+/* change pass parent wrapper - 1st div in change pass return */
+.changePass-parent-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  }
+  
+  /* change pass form wrapper - 2nd div in change pass return */
+  .changePass-form-wrapper {
+    background-color: rgb(255, 255, 255);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    padding-top: 1rem;
+    width: 25rem;
+  }
+  
+  /* change pass  header3 */
+  .changePass-header3 {
+    text-align: center;
+    padding: .5rem;
+    letter-spacing: 0.2rem;
+    color: rgb(115, 115, 115);
+  }
+  
+  /* submit button in change pass form  */
+  .changePass-form button {
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  /* inputs in change pass form  */
+  .changePass-form input {
+    margin-bottom: 1rem;
+   }
+  
+   /* labels in change pass  form  */
+   .changePass-form label {
+    margin: 0px;
+    color: #bbb;
+   }
+  

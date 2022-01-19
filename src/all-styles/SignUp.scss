@@ -1,0 +1,52 @@
+/*  Sign up Component */
+
+/* sign up parent wrapper - 1st div in sign up return */
+.signup-parent-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  width: 100%;
+  }
+  
+  /* sign up form wrapper - 2nd div in sign up return */
+  .signup-form-wrapper {
+    background-color: rgb(255, 255, 255);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    padding-top: 1.5rem;
+    width: 30rem;
+  }
+  
+  /* Sign up header3 */
+  .signup-header3 {
+    text-align: center;
+    letter-spacing: 0.2rem;
+    color: rgb(115, 115, 115);
+  }
+  
+  /* submit button in sign up form  */
+  .signup-form button {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+/* inputs in sign up form  */
+  .signup-form input {
+   margin-bottom: .7rem;
+  }
+
+/* labels in sign up form  */
+  .signup-form label {
+   margin: 0px;
+   color: #bbb;
+  }
+ 
+/* all fields are requires  sign up form*/
+.all-fields-required {
+  font-size: 1rem;
+  font-style: italic;
+  color: red;
+  padding-top: .5rem;
+}
+

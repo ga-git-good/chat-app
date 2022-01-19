@@ -3,13 +3,15 @@ import { Route } from 'react-router-dom'
 import AppContext from './context/context'
 import reducer from './context/reducer'
 
+import "./all-styles/App.scss"
+
 import Header from './components/Header/Header'
 import MainContent from './components/Main/MainContent'
 import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
-import Rooms from './components/auth/Rooms'
+
 
 const initialState = {
     loggedIn: false,
@@ -17,7 +19,8 @@ const initialState = {
 		userName: null,
     token: null,
     shouldSaveState: false,
-		userName: null
+		userName: null,
+		rooms: []
 }
 
 const App = () => {
@@ -30,8 +33,7 @@ const App = () => {
 						<Route path='/sign-up' component={SignUp} />
 						<Route path='/sign-in' component={SignIn} />
 						<Route path='/sign-out' component={SignOut} />
-						<Route path='/change-password' component={ChangePassword} />
-						<Route path='/rooms' component={Rooms} />
+            {/* Change Password is running in shared/Modal component */}
 					</main>
 					{state.loggedIn ? <MainContent /> : ''}
 					
@@ -41,3 +43,5 @@ const App = () => {
 
 
 export default App
+
+// add bill and hanif

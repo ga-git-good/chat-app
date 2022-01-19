@@ -1,0 +1,52 @@
+/*  Header Componenet */
+body {
+  background-color: rgb(244, 247, 250);
+}
+
+ /* Header componenet wrapper div */
+.header-wrapper {
+  background-color:rgb(135,171,255);
+  padding: .5rem;
+  font-size: 1.2rem;
+  width: 100vw;
+
+}
+
+/* logo wrapper in header 2nd div */
+.logo-wrapper{
+  margin-left: 1rem;
+}
+
+
+/* Logo text span */
+.logo-text {
+  border-radius: 10px;
+  color: white;
+  padding: 0.4rem;
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+}
+
+/* Navbar all links (NavLink) */
+.link {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #777;
+  letter-spacing: 0.16vw;
+}
+
+/* Links wrapper Login and Register */
+.links-group-1 {
+  display: flex;
+  position: absolute;
+  top: 2vh;
+  right: 1vw;
+}
+
+/* login and register links */
+.login, .register{
+  color: white;
+  margin-left: 1rem;
+}
