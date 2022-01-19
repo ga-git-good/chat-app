@@ -3,13 +3,14 @@ import React, { useState, useEffect, useHistory, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
 
-const MsgInput = ({received}) => {
+const MsgInput = ({received, room}) => {
   const { state, dispatch } = useContext(AppContext)
   const { loggedIn, userId, token, userName } = state
 
   const [messageText, setMessageText] = useState('')
   const [socket, setSocket] = useState(null)
   const [connected, setConnected] = useState(false)
+  const [socketAuthed, setSocketAuthed] = useState(false)
 
   // const receivedMessage = (msg) => {
   //   received(msg)
@@ -34,7 +35,7 @@ const MsgInput = ({received}) => {
     })
     socket.on('loggedin', (res) => {
       if (res) {
-        socket.emit('join', { roomId: 123 })
+        setSocketAuthed(true)
         socket.on('message', received)
       } else {
         console.log('failed to log in')
@@ -46,6 +47,15 @@ const MsgInput = ({received}) => {
 
   }, [])
 
+  // Join a room
+  // TODO
+  useEffect(() => {
+    console.log('seeing this pop up here as well')
+    if (room) {
+      socket.emit('join', { roomId: room })
+    }
+  }, [room])
+
   const sendMessage = (event) => {
     event.preventDefault()
     if (!socket) {
@@ -53,7 +63,7 @@ const MsgInput = ({received}) => {
     }
     const msg = {
 			message: messageText,
-			roomId: 123,
+			roomId: room,
 			image: 'https://i.imgur.com/wtxZVbP.png',
 			timestamp: new Date().toLocaleString(),
       userName: userName
