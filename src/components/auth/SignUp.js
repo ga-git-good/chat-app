@@ -31,19 +31,22 @@ const SignUp = () => {
         e.preventDefault()
         console.log(imageRef.current)
         console.log(imageRef.current.files)
-        let resizedImage = await readAndCompressImage(imageRef.current.files[0], imgConfig)
-        const data = new FormData(e.target)
-        console.log(resizedImage)
+        //let resizedImage = await readAndCompressImage(imageRef.current.files[0], imgConfig)
+        // const data = new FormData(e.target)
+        const file = imageRef.current.files[0]
+        const type = file.name.split('.').pop()
+        console.log(type)
         const apiObj = {
             email: email,
             userName: username,
             password: password,
-            passwordConfirmation: passConfirm
+            passwordConfirmation: passConfirm,
+            pfpType: type
         }
         signUp(apiObj)
             .then(() => signIn(apiObj))
             .then((res) => {
-                uploadPfp(resizedImage, res.data.user._id)
+                uploadPfp(imageRef.current.files[0], res.data.user.userName)
                 dispatch({
                     type: SET_USER_ID,
                     payload: res.data.user._id
