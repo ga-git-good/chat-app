@@ -48,6 +48,7 @@ const MsgInput = ({received, room}) => {
   }, [])
 
   // Join a room
+  // TODO
   useEffect(() => {
     socket.emit('join', { roomId: room })
   }, [room])
