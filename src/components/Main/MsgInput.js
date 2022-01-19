@@ -50,7 +50,10 @@ const MsgInput = ({received, room}) => {
   // Join a room
   // TODO
   useEffect(() => {
-    socket.emit('join', { roomId: room })
+    console.log('seeing this pop up here as well')
+    if (room) {
+      socket.emit('join', { roomId: room })
+    }
   }, [room])
 
   const sendMessage = (event) => {
@@ -60,7 +63,7 @@ const MsgInput = ({received, room}) => {
     }
     const msg = {
 			message: messageText,
-			roomId: 123,
+			roomId: room,
 			image: 'https://i.imgur.com/wtxZVbP.png',
 			timestamp: new Date().toLocaleString(),
       userName: userName

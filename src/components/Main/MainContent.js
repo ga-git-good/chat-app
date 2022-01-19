@@ -28,10 +28,12 @@ const MainContent = () => {
   const [changedRoom, setChangedRoom] = useState('')
 
   const changeRoom = (roomId) => {
+    console.log('changing room to: ', roomId)
     setChangedRoom(roomId)
   }
 
   useEffect(() => {
+    console.log('room has been changed')
     if (changedRoom === currentRoom) {
       return
     } else {
@@ -44,7 +46,7 @@ const MainContent = () => {
       console.log(rooms)
       setRoomsJSX(rooms.map(room => (
         <li key={`${room._id}`}>
-          <Link to={`/${room._id}`}>{`${room.name}`}</Link>
+          <a href='#' onClick={changeRoom(room._id)}>{`${room.name}`}</a>
         </li>
       )))
     }
