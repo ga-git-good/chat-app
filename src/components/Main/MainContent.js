@@ -24,6 +24,20 @@ const MainContent = () => {
   const [roomName, setRoomName] = useState('')
   const { rooms, userId, token } = state
   const [roomsJSX, setRoomsJSX] = useState(null)
+  const [currentRoom, setCurrentRoom] = useState('')
+  const [changedRoom, setChangedRoom] = useState('')
+
+  const changeRoom = (roomId) => {
+    setChangedRoom(roomId)
+  }
+
+  useEffect(() => {
+    if (changedRoom === currentRoom) {
+      return
+    } else {
+      setCurrentRoom(changedRoom)
+    }
+  }, [changedRoom])
 
   useEffect(() => {
     if (rooms) {
@@ -47,6 +61,7 @@ const MainContent = () => {
           newArray.push(existingRoom)
         }
       })
+      setCurrentRoom(newArray[0])
     }
     console.log(newArray)
     dispatch({
@@ -151,7 +166,7 @@ const MainContent = () => {
                 <AlwaysScrollToBottom />
               </ul>
             </section>
-            <Input received={newMessage} />
+            <Input received={newMessage} room={currentRoom} />
             {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>

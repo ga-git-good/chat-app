@@ -3,13 +3,14 @@ import React, { useState, useEffect, useHistory, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
 
-const MsgInput = ({received}) => {
+const MsgInput = ({received, room}) => {
   const { state, dispatch } = useContext(AppContext)
   const { loggedIn, userId, token, userName } = state
 
   const [messageText, setMessageText] = useState('')
   const [socket, setSocket] = useState(null)
   const [connected, setConnected] = useState(false)
+  const [socketAuthed, setSocketAuthed] = useState(false)
 
   // const receivedMessage = (msg) => {
   //   received(msg)
@@ -34,7 +35,7 @@ const MsgInput = ({received}) => {
     })
     socket.on('loggedin', (res) => {
       if (res) {
-        socket.emit('join', { roomId: 123 })
+        setSocketAuthed(true)
         socket.on('message', received)
       } else {
         console.log('failed to log in')
@@ -45,6 +46,11 @@ const MsgInput = ({received}) => {
     setConnected(true)
 
   }, [])
+
+  // Join a room
+  useEffect(() => {
+    socket.emit('join', { roomId: room })
+  }, [room])
 
   const sendMessage = (event) => {
     event.preventDefault()
