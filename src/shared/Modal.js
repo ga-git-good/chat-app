@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { NavLink, Route } from 'react-router-dom'
 import ChangePassword from '../components/auth/ChangePassword'
-import '../all-styles/Modal.scss'
 
 const Modale = () => {
   const [show, setShow] = useState(false)

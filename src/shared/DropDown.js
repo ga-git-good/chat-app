@@ -2,7 +2,6 @@ import React, { useState ,Fragment} from 'react'
 import { NavLink, Route } from 'react-router-dom'
 import { Dropdown, Modal } from 'react-bootstrap'
 
-import "../all-styles/DropDown.scss"
 import Modale from './Modal'
 import ChangePassword from '../components/auth/ChangePassword'
 

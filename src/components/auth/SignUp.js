@@ -5,7 +5,6 @@ import { SET_TOKEN, SET_USER_ID } from '../../context/action-types'
 import { useHistory } from 'react-router-dom'
 
 import { signUp, signIn, uploadPfp } from '../../api/auth'
-import "../../all-styles/SignUp.scss"
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -71,10 +70,10 @@ const SignUp = () => {
     return loggedIn ? (
 			<Redirect to='/' />
 		) : (
-			<div className='row'>
-				<div className='col-sm-10 col-md-8 mx-auto mt-5'>
-					<h3>Sign Up</h3>
-					<Form onSubmit={onSignUp}>
+			<div className='row signup-parent-wrapper'>
+				<div className='signup-form-wrapper'>
+					<h3 className='signup-header3'>Sign Up</h3>
+					<Form className='signup-form' onSubmit={onSignUp}>
 						<Form.Group>
 							<Form.Label>Email address</Form.Label>
 							<Form.Control
@@ -128,7 +127,7 @@ const SignUp = () => {
 								accept='image/*'
 								multiple={false}
 								//onChange={(e) => imagePicker(e)}
-                                ref={imageRef}
+								ref={imageRef}
 							/>
 						</Form.Group>
 						<Button variant='primary' type='submit'>

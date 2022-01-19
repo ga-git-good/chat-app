@@ -6,7 +6,6 @@ import { changePassword } from '../../api/auth'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import "../../all-styles/ChangePass.scss"
 
 const ChangePassword = ({closeModal}) => {
     const {state, dispatch} = useContext(AppContext)

@@ -3,8 +3,6 @@ import { Route } from 'react-router-dom'
 import AppContext from './context/context'
 import reducer from './context/reducer'
 
-import "./all-styles/App.scss"
-
 import Header from './components/Header/Header'
 import MainContent from './components/Main/MainContent'
 import SignUp from './components/auth/SignUp'
