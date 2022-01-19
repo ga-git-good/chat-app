@@ -1,0 +1,28 @@
+/*  Modal Companenet */
+
+.modal-content {
+  top: 15vh;
+  border-radius: 1rem;
+}
+
+.modal-header {
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  padding: 1.5rem;
+  background-color: rgb(135,171,255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.changePass-modal-title {
+  padding:10px;
+  position: absolute;
+  text-align: center;
+  padding: .5rem;
+  letter-spacing: 0.2rem;
+  color: white
+}
+.btn-close {
+  background-color: red;
+}

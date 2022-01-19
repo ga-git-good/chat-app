@@ -6,8 +6,9 @@ import { changePassword } from '../../api/auth'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import "../../all-styles/ChangePass.scss"
 
-const ChangePassword = () => {
+const ChangePassword = ({closeModal}) => {
     const {state, dispatch} = useContext(AppContext)
     const history = useHistory()
     const { loggedIn, token } = state
@@ -22,23 +23,26 @@ const ChangePassword = () => {
         }
     changePassword(passwords, token)
         .then((response) =>{
+        closeModal()
         // put toast here
-
+        
+        console.log(props,  "kaskdakddkadasndakdaksdkandakdsd");
+        
         })
         .then(() => history.push('/'))
         .catch((error) => {
         setNewPassword('')
         setOldPassword('')
         //Failure toast here
+        
         })
     }
 
     return (
         !loggedIn ? <Redirect to='/' /> :
-        <div className='row'>
-        <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-            <h3>Change Password</h3>
-            <Form >
+        <div className='row changePass-parent-wrapper '>
+        <div className='changePass-form-wrapper'>
+            <Form className="changePass-form" >
             <Form.Group controlId='oldPassword'>
                 <Form.Label>Old password</Form.Label>
                 <Form.Control

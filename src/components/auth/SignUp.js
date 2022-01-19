@@ -5,7 +5,7 @@ import { SET_TOKEN, SET_USER_ID } from '../../context/action-types'
 import { useHistory } from 'react-router-dom'
 
 import { signUp, signIn } from '../../api/auth'
-import "../../all-styles/SignUp.css"
+import "../../all-styles/SignUp.scss"
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
