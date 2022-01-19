@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react'
-import { Redirect, withRouter } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import AppContext from '../../context/context'
 import { SET_TOKEN, SET_USER_ID } from '../../context/action-types'
 import { useHistory } from 'react-router-dom'
 
 import { signUp, signIn } from '../../api/auth'
-import { signUpSuccess, signUpFailure } from '../AutoDismissAlert/messages'
+import "../../all-styles/SignUp.css"
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -54,10 +54,11 @@ const SignUp = () => {
 
     return (
         loggedIn ? <Redirect to='/' /> :
-        <div className='row'>
-        <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-            <h3>Sign Up</h3>
-            <Form>
+        <div className='row signup-parent-wrapper'>
+        <div className='signup-form-wrapper'>
+            <h3 className="signup-header3 ">Sign Up <p className="all-fields-required">All Fileds are *required</p></h3>
+            
+            <Form className="signup-form">
             <Form.Group controlId='email'>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
