@@ -1,14 +1,15 @@
 import React from 'react'
+import apiUrl from '../../apiConfig'
 
 const timeStampStyle = {
 	color: 'rgba(123, 115, 115, 0.70)',
 }
 
 const Message = (props) => {
-
+	const imgUrl = apiUrl + '/img/' + props.userName
   return (
 		<div className='message-layout'>
-			<img col='1' className='userImage' src={props.image} />
+			<img col='1' className='userImage' src={imgUrl} />
 			<li col='2'>
 				<strong>{props.userName}</strong> <a style={timeStampStyle}>{props.timestamp}</a>:
 				<br />
