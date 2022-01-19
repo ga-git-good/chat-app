@@ -3,7 +3,7 @@ import { Redirect, useHistory } from 'react-router-dom'
 import AppContext from '../../context/context'
 
 
-import "../../all-styles/SignIn.css"
+import "../../all-styles/SignIn.scss"
 import { toast } from 'react-toastify'
 import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN, SET_USERNAME, SET_ROOMS_ID } from '../../context/action-types'
 import { signIn } from '../../api/auth'
