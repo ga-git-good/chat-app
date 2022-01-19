@@ -7,9 +7,13 @@ import OffCanvas from '../../shared/OffCanvas'
 
 
 
-const authenticatedOptions = (
- <OffCanvas/>
-)
+const authenticatedOptions = (user) => { return (
+<>
+
+<OffCanvas user={user}/>
+</>
+ 
+)}
 
 const unauthenticatedOptions = (
   <Fragment>
@@ -30,7 +34,6 @@ const unauthenticatedOptions = (
 
 const Header = () => {
   const { state, dispatch } = useContext(AppContext)
-  console.log(state)
   const user = state
 
   return (
@@ -42,9 +45,9 @@ const Header = () => {
       </div>
 
       <div className='nav-links-group-1'>
-        {user.loggedIn ? authenticatedOptions : unauthenticatedOptions}
+        {user.loggedIn ? authenticatedOptions(user) : unauthenticatedOptions}
       </div>
-    </div>
+    </div>   
   )
 }
 
