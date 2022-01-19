@@ -11,10 +11,22 @@ export const signUp = (credentials) => {
         email: credentials.email,
         password: credentials.password,
         password_confirmation: credentials.passwordConfirmation,
-        userName: credentials.userName
+        userName: credentials.userName,
       }
-    }
+    },
   })
+}
+
+export const uploadPfp = (blob, userId) => {
+  const config = {
+		headers: {
+			'Content-Type': 'multipart/form-data;',
+		},
+	}
+  console.log('posting blob for user:', userId)
+  const data = new FormData()
+  data.append('pfp', blob)
+  axios.post(apiUrl + '/upload/' + userId, data, config)
 }
 
 export const signIn = (credentials) => {
