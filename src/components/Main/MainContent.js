@@ -40,8 +40,8 @@ const MainContent = () => {
     let newArray = []
     const response = await showRooms(token)
     const existingRooms = response.data.room
-    console.log('existing rooms: ', existingRooms)
-    if (!rooms) {
+    console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
+    if (!rooms[0]) {
       existingRooms.forEach(existingRoom => {
         if (existingRoom.validUsers.includes(userId)) {
           newArray.push(existingRoom)
@@ -105,7 +105,8 @@ const MainContent = () => {
     <Container>
       {/* Second row - will contain rooms/DMs as well as main content */}
       <Row className='top-row'>
-        <Col className='left-side-nav col-2'>
+        <Col className='col-2'>
+          <div className='left-side-nav'>
             <Row>
               <Col><h4>Rooms</h4></Col>
               <Col>
@@ -142,6 +143,15 @@ const MainContent = () => {
                   {roomsJSX}
                 </ul>
               </section>
+            </Row>
+          </div>
+          {/* Ayoub this is your spot to add active users */}
+            <Row className='active-users'>
+              <li>Tony</li>
+              <li>Ayoub</li>
+              <li>Jonah</li>
+              <li>Hanif</li>
+              <li>Bill</li>
             </Row>
         </Col>
         <Col className='main-content col-9'>
