@@ -41,7 +41,6 @@ const SignUp = () => {
             userName: username,
             password: password,
             passwordConfirmation: passConfirm,
-            pfpType: type
         }
         signUp(apiObj)
             .then(() => signIn(apiObj))

@@ -6,7 +6,9 @@ const timeStampStyle = {
 }
 
 const Message = (props) => {
+	console.log('imgurl:')
 	const imgUrl = apiUrl + '/img/' + props.userName
+	console.log(imgUrl)
   return (
 		<div className='message-layout'>
 			<img col='1' className='userImage' src={imgUrl} />

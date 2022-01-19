@@ -64,7 +64,6 @@ const MsgInput = ({received, room}) => {
     const msg = {
 			message: messageText,
 			roomId: room,
-			image: 'https://i.imgur.com/wtxZVbP.png',
 			timestamp: new Date().toLocaleString(),
       userName: userName
 		}
