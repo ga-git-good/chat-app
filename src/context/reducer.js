@@ -38,11 +38,11 @@ export default (state, action) => {
             return action.payload === null
                 ? {...state, serverUsers: null}
                 : {...state, serverUsers: action.payload}
-        default:
         case SAVE_STATE:
             return action.payload === null
                 ? {...state, shouldSaveState: false}
                 : {...state, shouldSaveState: action.payload}
-            return state // Ayoub here: question this RETURN is it intentional ?
+        default: 
+          return state 
     }
 }
