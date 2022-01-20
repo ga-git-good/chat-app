@@ -256,7 +256,7 @@ const MainContent = () => {
           {/* Ayoub this is your spot to add active users */}
             <Row className='active-users'>
                 <h4 className='roomsHeader'>Users</h4>
-                <ServerUserSideBar />
+                <ServerUserSideBar currentRoom={currentRoom} />
             </Row>
         </Col>
         <Col className='main-content col-9'>

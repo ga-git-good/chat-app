@@ -3,8 +3,9 @@ import AppContext from '../context/context'
 import { SET_SERVER_USERS } from '../context/action-types'
 import ShowServerUsers from '../api/ShowServerUsers'
 import ServerUser from './ServerUser'
+import addUserToRoom from '../api/addUser'
 
-const ServerUserSideBar = () => {
+const ServerUserSideBar = ({currentRoom}) => {
   const { state, dispatch } = useContext(AppContext)
   const { serverUsers, token } = state
   const [serverUsersJSX, setServerUsersJSX] = useState(null)
@@ -21,6 +22,11 @@ const ServerUserSideBar = () => {
     
     
   // }, []);
+
+  const addUser = (userId) => {
+    console.log(`adding user ${userId} to room ${currentRoom}`)
+    addUserToRoom(currentRoom, userId, token)
+  }
 
   const updateUsers = async () => {
     // console.log('updating users...')
@@ -42,7 +48,7 @@ const ServerUserSideBar = () => {
     console.log('server users: ', serverUsers)
     setServerUsersJSX(serverUsers.map(user => (
       <li key={user._id} className='user-list-item'>
-        <ServerUser name={user.userName} status={user.status}></ServerUser>
+        <ServerUser name={user.userName} userId={user._id} add={addUser} status={user.status} />
       </li>
     )))
   }, [serverUsers])
