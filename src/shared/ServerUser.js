@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
-const imgUrl = apiUrl + '/img/' + props.userName
+import apiUrl from '../apiConfig'
+
 
 const ServerUser = ({ name, status }) => {
-
+  const imgUrl = apiUrl + '/img/' + name
   useEffect(() => {
     
   }, [status])
 
   return (
     <>
-      <li>
         <img col='1' className='userImage' src={imgUrl}></img>
         <span>{name}</span>
         <span>{status}</span>
-      </li>
     </>
   )
 }

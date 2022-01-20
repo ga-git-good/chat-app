@@ -8,6 +8,7 @@ import RoomTitle from './RoomTitle'
 import createRoom from '../../api/CreateRoom'
 import showRooms from '../../api/ShowRooms'
 import { SET_ROOMS_ID } from '../../context/action-types'
+import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -171,11 +172,7 @@ const MainContent = () => {
           </div>
           {/* Ayoub this is your spot to add active users */}
             <Row className='active-users'>
-              <li>Tony</li>
-              <li>Ayoub</li>
-              <li>Jonah</li>
-              <li>Hanif</li>
-              <li>Bill</li>
+                <ServerUserSideBar />
             </Row>
         </Col>
         <Col className='main-content col-9'>
