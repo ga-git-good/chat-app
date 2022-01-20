@@ -7,21 +7,20 @@ const serverUserSideBar = () => {
   const { serverUsers, token } = state
   const [serverUsersJSX, setServerUsersJSX] = userState(null)
 
-  useEffect(() => {
-    (async () => {
-      let usersArray
-      const response = await showServerUsers(token)
-      usersArray = response
-      dispatch({
-        type: SET_SERVER_USERS,
-        payload: usersArray
-      })
-      setServerUsersJSX(usersArray.map(user => (
-        <li>
-          <span>{`${ user.name }`}</span>
-        </li>
-      )))
-    })()
+  useEffect(async () => {
+    let usersArray
+    const response = await showServerUsers(token)
+    usersArray = response
+    dispatch({
+      type: SET_SERVER_USERS,
+      payload: usersArray
+    })
+    setServerUsersJSX(usersArray.map(user => (
+      <li>
+        { user.status === 'online' ? <i>Online</i> : <i>Offline</i> }
+        <span>{`${ user.name }`}</span>
+      </li>
+    )))
   }, [serverUsers]);
 
   return (
