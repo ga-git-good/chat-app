@@ -2,6 +2,7 @@ import React, { useEffect, userState } from 'react'
 import AppContext from '../context/context'
 import { SET_SERVER_USERS } from '../context/action-types'
 import ShowServerUsers from '../api/ShowServerUsers'
+import ServerUser from './ServerUser'
 
 const ServerUserSideBar = () => {
   const { state, dispatch } = useContext(AppContext)
