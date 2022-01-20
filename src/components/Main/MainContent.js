@@ -177,18 +177,22 @@ const MainContent = () => {
 			<Row className='top-row'>
 				<Col className='col-3 left-side-options'>
 					<div className='left-side-nav'>
-						<Row>
-							<Col style={{ position: 'relative' }}>
-								<Col>
-									<h4 className='roomsHeader' style={{display:'inline'}}>
-										Rooms{' '}
-										<ModaleCreateRoom
+						<Row >
+							<Col>
+								<div style={{ position: 'fixed'}}>
+									<h4 className='roomsHeader' style={{width: "20vw"}}>
+										Rooms
+									</h4>
+
+
+                  <ModaleCreateRoom
 											onCreateRoom={onCreateRoom}
 											roomName={roomName}
 											setRoomName={setRoomName}
-										/>
-									</h4>
-								</Col>
+									/>
+
+                  
+								</div>
 								{/* <Button className='create-room-button m-3'> Create Room</Button> */}
 
 								{/* <Dropdown.Item eventKey='1' as='form' > */}

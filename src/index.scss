@@ -302,9 +302,8 @@ background-color: $backgroundColor;
 .roomsHeader {
   padding: 1rem 0 1rem 1rem;
   border-top-left-radius: 1rem;
-  position: fixed;
   background-color: $backgroundColor;
-  display: inline;
+  display: inline-block;
 }
 
 .room-list {
@@ -492,3 +491,11 @@ width: 100%;
 //   flex-direction: row;
 //   margin: 1rem !important;
 // }
+
+
+.create-room-button {
+  position: absolute;
+  top: 2vh;
+  left: 18vw;
+  height: 1.5rem;
+}
