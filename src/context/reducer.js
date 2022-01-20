@@ -3,8 +3,9 @@ import {
     SET_USER_ID,
     SET_TOKEN,
     SET_SIGNEDIN,
+    SET_ROOMS_ID,
+    SET_SERVER_USERS,
     SAVE_STATE,
-    SET_ROOMS_ID
 } from './action-types'
 
 export default (state, action) => {
@@ -33,11 +34,15 @@ export default (state, action) => {
             return action.payload === null
                 ? {...state, rooms: null}
                 : {...state, rooms: action.payload}
+        case SET_SERVER_USERS:
+            return action.payload === null
+                ? {...state, serverUsers: null}
+                : {...state, serverUsers: action.payload}
+        default:
         case SAVE_STATE:
             return action.payload === null
                 ? {...state, shouldSaveState: false}
                 : {...state, shouldSaveState: action.payload}
-        default:
-            return state
+            return state // Ayoub here: question this RETURN is it intentional ?
     }
 }
