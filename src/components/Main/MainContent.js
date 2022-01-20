@@ -12,6 +12,7 @@ import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
+import { deleteRoom } from '../../components/Main/MsgInput'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -95,6 +96,7 @@ const MainContent = () => {
       setRoomsJSX(rooms.map(room => (
         <li key={`${room._id}`}>
           <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
+          {room.owner === userId ? <img src="https://icongr.am/octicons/trash.svg?size=8" onClick={deleteRoom(room._id)} /> : null }
         </li>
       )))
     }

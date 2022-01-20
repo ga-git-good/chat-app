@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
 import apiUrl from '../../apiConfig';
 
-const MsgInput = ({received, room}) => {
+const MsgInput = ({received, room, roomOwner }) => {
   const { state, dispatch } = useContext(AppContext)
   const { loggedIn, userId, token, userName } = state
 
@@ -57,6 +57,15 @@ const MsgInput = ({received, room}) => {
     }
   }, [room])
 
+  export const deleteRoom = (roomId) => {
+    const data = {
+      roomId: roomId,
+			timestamp: new Date().toLocaleString(),
+      userId: userId
+    }
+    socket.emit('delete-room', data)
+  }
+
   const sendMessage = (event) => {
     event.preventDefault()
     if (!socket) {
@@ -77,12 +86,10 @@ const MsgInput = ({received, room}) => {
   return (
 		<>
 			{room !== '' ? 
-      
-        <form className='message-input-window' onSubmit={sendMessage}>
-          <input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
-          <button type='submit' className='send-message'>Send</button>
-        </form>
-        
+          <form className='message-input-window' onSubmit={sendMessage}>
+            <input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
+            <button type='submit' className='send-message'>Send</button>
+          </form>
        : '' }
     </>
 		
