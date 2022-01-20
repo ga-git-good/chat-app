@@ -198,28 +198,32 @@ const MainContent = () => {
   }, [messages])
 
   return (
-    <Container className='main-container'>
-      {/* Second row - will contain rooms/DMs as well as main content */}
-      <Row className='top-row'>
-        <Col className='col-3 left-side-options'>
-          <div className='left-side-nav'>
-            <Row>
-           
-              <Col style={{position:"relative"}}>
-
-              <Col><h4 className='roomsHeader'>Rooms</h4></Col>
-              <ModaleCreateRoom onCreateRoom ={onCreateRoom} roomName={roomName} setRoomName={setRoomName}/>
-
-
-
-              {/* <Button className='create-room-button m-3'> Create Room</Button> */}
-             
-
-                {/* <Dropdown.Item eventKey='1' as='form' > */}
+		<Container className='main-container'>
+			{/* Second row - will contain rooms/DMs as well as main content */}
+			<Row className='top-row'>
+				<Col className='col-3 left-side-options'>
+					<div className='left-side-nav'>
+						<Row >
+							<Col>
+								<div style={{ position: 'fixed'}}>
+									<h4 className='roomsHeader' style={{width: "20vw"}}>
+										Rooms
+									</h4>
 
 
+                  <ModaleCreateRoom
+											onCreateRoom={onCreateRoom}
+											roomName={roomName}
+											setRoomName={setRoomName}
+									/>
 
-                  {/* <Form onSubmit={onCreateRoom} className='d-none'>
+                  
+								</div>
+								{/* <Button className='create-room-button m-3'> Create Room</Button> */}
+
+								{/* <Dropdown.Item eventKey='1' as='form' > */}
+
+								{/* <Form onSubmit={onCreateRoom} className='d-none'>
                       <Form.Group controlId='room-name'>
                         <Form.Control 
                         required
@@ -232,7 +236,6 @@ const MainContent = () => {
                         <button type='submit'>Create</button>
                       </Form.Group>
                   </Form> */}
-
 
 
 
@@ -274,10 +277,10 @@ const MainContent = () => {
               <input className='message-input' />
               <button className='send-message'>Send</button>
             </form> */}
-        </Col>
-      </Row>
-    </Container>
-  )
+				</Col>
+			</Row>
+		</Container>
+	)
 }
 
 export default MainContent
