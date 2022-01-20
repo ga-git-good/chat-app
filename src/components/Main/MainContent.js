@@ -172,28 +172,28 @@ const MainContent = () => {
   }, [messages])
 
   return (
-    <Container className='main-container'>
-      {/* Second row - will contain rooms/DMs as well as main content */}
-      <Row className='top-row'>
-        <Col className='col-3 left-side-options'>
-          <div className='left-side-nav'>
-            <Row>
-           
-              <Col style={{position:"relative"}}>
+		<Container className='main-container'>
+			{/* Second row - will contain rooms/DMs as well as main content */}
+			<Row className='top-row'>
+				<Col className='col-3 left-side-options'>
+					<div className='left-side-nav'>
+						<Row>
+							<Col style={{ position: 'relative' }}>
+								<Col>
+									<h4 className='roomsHeader' style={{display:'inline'}}>
+										Rooms{' '}
+										<ModaleCreateRoom
+											onCreateRoom={onCreateRoom}
+											roomName={roomName}
+											setRoomName={setRoomName}
+										/>
+									</h4>
+								</Col>
+								{/* <Button className='create-room-button m-3'> Create Room</Button> */}
 
-              <Col><h4 className='roomsHeader'>Rooms</h4></Col>
-              <ModaleCreateRoom onCreateRoom ={onCreateRoom} roomName={roomName} setRoomName={setRoomName}/>
+								{/* <Dropdown.Item eventKey='1' as='form' > */}
 
-
-
-              {/* <Button className='create-room-button m-3'> Create Room</Button> */}
-             
-
-                {/* <Dropdown.Item eventKey='1' as='form' > */}
-
-
-
-                  {/* <Form onSubmit={onCreateRoom} className='d-none'>
+								{/* <Form onSubmit={onCreateRoom} className='d-none'>
                       <Form.Group controlId='room-name'>
                         <Form.Control 
                         required
@@ -207,51 +207,44 @@ const MainContent = () => {
                       </Form.Group>
                   </Form> */}
 
+								{/* </Dropdown.Item> */}
+							</Col>
+						</Row>
 
-
-
-                 
-                {/* </Dropdown.Item> */}
-              
-              </Col>
-            </Row>
-
-           
-
-            <Row>
-              {/* TODO: Make this into its own component */}
-              <section className='open-rooms'>
-                <ul className='room-list'>
-                  {roomsJSX}
-                </ul>
-              </section>
-            </Row>
-          </div>
-          {/* Ayoub this is your spot to add active users */}
-            <Row className='active-users'>
-            <h4 className='roomsHeader'>Users</h4>
-                <ServerUserSideBar />
-            </Row>
-        </Col>
-        <Col className='main-content col-9'>
-          <Row>
-            <RoomTitle room={currentRoomName} />
-          </Row>
-            <section className='messages-window'>
-              <ul className='messages'>
-                {currentRoom ? components : 'No room selected. Please join a room to start a conversation!'}
-                <AlwaysScrollToBottom />
-              </ul>
-            </section>
-            <Input received={newMessage} room={currentRoom} />
-            {/* <form className='message-input-window'>
+						<Row>
+							{/* TODO: Make this into its own component */}
+							<section className='open-rooms'>
+								<ul className='room-list'>{roomsJSX}</ul>
+							</section>
+						</Row>
+					</div>
+					{/* Ayoub this is your spot to add active users */}
+					<Row className='active-users'>
+						<h4 className='roomsHeader'>Users</h4>
+						<ServerUserSideBar />
+					</Row>
+				</Col>
+				<Col className='main-content col-9'>
+					<Row>
+						<RoomTitle room={currentRoomName} />
+					</Row>
+					<section className='messages-window'>
+						<ul className='messages'>
+							{currentRoom
+								? components
+								: 'No room selected. Please join a room to start a conversation!'}
+							<AlwaysScrollToBottom />
+						</ul>
+					</section>
+					<Input received={newMessage} room={currentRoom} />
+					{/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>
             </form> */}
-        </Col>
-      </Row>
-    </Container>
-  )
+				</Col>
+			</Row>
+		</Container>
+	)
 }
 
 export default MainContent
