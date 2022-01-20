@@ -86,11 +86,11 @@ const MainContent = () => {
       setMessages([])
       setCurrentRoom(changedRoom)
       setCurrentRoomName(changedRoomName)
-      showActiveUsers()
-        .then(usersArray => {
-          setRoomUsersJSX(usersArray.map(user => (
-            <li>{`${ user.name }`}</li>
-          )))})
+      // showActiveUsers()
+      //   .then(usersArray => {
+      //     setRoomUsersJSX(usersArray.map(user => (
+      //       <li>{`${ user.name }`}</li>
+      //     )))})
     }
   }, [changedRoom])
 
