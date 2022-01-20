@@ -6,10 +6,15 @@ import {
     SET_ROOMS_ID,
     SET_SERVER_USERS,
     SAVE_STATE,
+    ADD_CACHE
 } from './action-types'
 
 export default (state, action) => {
     switch (action.type) {
+        case ADD_CACHE:
+            return action.payload === null
+                ? {...state, cachedPfps: []}
+                : {...state, cachedPfps: action.payload}
         case SET_USERNAME:
             return action.payload === null
                 ? {...state, userName: null}

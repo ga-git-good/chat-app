@@ -6,6 +6,9 @@ export const SET_ROOMS_ID = 'SET_ROOMS_ID'
 export const SAVE_STATE = 'SET_STATE'
 export const SET_SERVER_USERS = 'SET_SERVER_USERS'
 
+// don't include in ALL_TYPES
+export const ADD_CACHE = 'ADD_CACHE'
+
 export const ALL_TYPES = [
     SET_USERNAME,
     SET_USER_ID,

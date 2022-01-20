@@ -10,6 +10,7 @@ import showRooms from '../../api/ShowRooms'
 import showRoomUsers from '../../api/ShowRoomUsers'
 import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
+import { updateCache, getPfp } from '../../shared/updateCache'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -25,13 +26,37 @@ const MainContent = () => {
   const [components, setComponents] = useState([])
   const [newMessageObj, setNewMessageObj] = useState(null)
   const [roomName, setRoomName] = useState('')
-  const { rooms, userId, token } = state
+  const { rooms, userId, token, serverUsers, cachedPfps } = state
   const [roomsJSX, setRoomsJSX] = useState(null)
   const [roomUsersJSX, setRoomUsersJSX] = useState(null)
   const [currentRoom, setCurrentRoom] = useState('')
   const [changedRoom, setChangedRoom] = useState('')
   const [currentRoomName, setCurrentRoomName] = useState('')
   const [changedRoomName, setChangedRoomName] = useState('')
+  //const [updatedCache, setUpdatedCache] = useState(true)
+
+  // useEffect(() => {
+  //   updateCache(serverUsers, cachedPfps, dispatch)
+  // }, [serverUsers])
+
+  useEffect(() => {
+    console.log('fetching pfps')
+    console.log('already cached userNames:')
+    console.log(cachedPfps)
+    // console.log('serverUsers:')
+    // console.log(serverUsers)
+    // console.log('cached pfps:')
+    // console.log(cachedPfps)
+    updateCache(serverUsers, cachedPfps, dispatch).then(
+			(result) => {
+				if (result) {
+					//console.log(getPfp('12345'))
+				} else {
+					console.error('failed to cache images')
+				}
+			}
+		)
+  }, [serverUsers])
 
   const changeRoom = (roomId, roomName) => {
     console.log('changing room to: ', roomId)
