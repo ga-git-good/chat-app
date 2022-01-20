@@ -8,6 +8,7 @@ import RoomTitle from './RoomTitle'
 import createRoom from '../../api/CreateRoom'
 import showRooms from '../../api/ShowRooms'
 import showRoomUsers from '../../api/ShowRoomUsers'
+import goOffline from '../../api/GoOffline'
 import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
@@ -42,9 +43,9 @@ const MainContent = () => {
   // }, [serverUsers])
 
   useEffect(() => {
-    console.log('fetching pfps')
-    console.log('already cached userNames:')
-    console.log(cachedPfps)
+    // console.log('fetching pfps')
+    // console.log('already cached userNames:')
+    // console.log(cachedPfps)
     if (!serverUsers || serverUsers.length === 0) {
       return
     }
@@ -140,6 +141,9 @@ const MainContent = () => {
       type: SET_ROOMS_ID,
       payload: newArray
     })
+    window.addEventListener("beforeunload", () => {
+      goOffline(token, userId)
+    }, false);
   }, [])
 
   const onCreateRoom = async (event, func) => {
@@ -251,7 +255,7 @@ const MainContent = () => {
           </div>
           {/* Ayoub this is your spot to add active users */}
             <Row className='active-users'>
-            <h4 className='roomsHeader'>Users</h4>
+                <h4 className='roomsHeader'>Users</h4>
                 <ServerUserSideBar />
             </Row>
         </Col>
