@@ -1,0 +1,36 @@
+.modal-content{
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+  top: 0;
+}
+
+.createRoom-modal-title{
+  padding:10px;
+  position: absolute;
+  text-align: center;
+  padding: .5rem;
+  letter-spacing: 0.1rem; 
+  color: white
+}
+input {
+  height: 2rem;
+}
+
+.create-room-button {
+  position: absolute;
+  top: 1.5vh;
+  right: 2vw;
+  height: 1.5rem;
+
+
+}
+.create-room-span {
+  position: absolute;
+  font-size: 1.5rem;
+  top: -8px;
+  right: 0.3rem;
+
+
+
+}

@@ -1,15 +1,23 @@
 @import '~bootstrap/scss/bootstrap';
 @import './all-styles/colors.scss';
 
+a {
+  color: $borderColor;
+}
 body {
   background-color: $backgroundColor;
   color: $fontColor
 }
 
+button {
+  border-radius: .3rem;
+}
+
 .active-users {
   width: 100%;
   margin: 0 !important;
-  height: 40vh;
+  // height: 40vh;
+  // width: 12vw;
   border: 1px solid $borderColor;
   border-radius: 1rem;
 }
@@ -76,6 +84,10 @@ body {
   color: white
 }
 
+.main-container {
+  margin: 0 auto !important;
+}
+
 .dropdown-username {
   color: white;
   padding: 2px 8px;
@@ -98,7 +110,7 @@ body {
 }
 
 .form-control, input {
-  background-color: black;
+  background-color: $inputBackground;
   border-color: $fontColor;
 }
 
@@ -151,6 +163,21 @@ body {
   margin-left: 1rem;
 }
 
+.left-side-options {
+  // width: 20%;
+}
+
+.left-side-nav {
+  height: 30vh;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  margin-right: 0;
+  width: 100%;
+  border: 1px solid $borderColor;
+  border-radius: 1rem;
+  color: $fontColor;
+}
+
 .left-side-nav.col-2.col {
   height: 30vh;
   margin: 1rem;
@@ -171,16 +198,9 @@ body {
 
 }
 
-.left-side-nav {
-  height: 30vh;
-  margin: 1rem;
-  border: 1px solid $borderColor;
-  border-radius: 1rem;
-  color: $fontColor;
-}
-
 .main-content {
-  margin: 1rem;
+  margin: 1rem 0;
+  padding: 0;
   border: 1px solid black;
 }
 
@@ -191,9 +211,9 @@ body {
 }
 
 .message-input {
-  width: 80%;
+  width: 90%;
   margin: 0.5rem;
-  background: black;
+  background: $inputBackground;
 }
 
 .message-input-window {
@@ -211,7 +231,7 @@ body {
 
 .message-text {
   display: flex;
-  width: 93%;
+  width: 90%;
   
 }
 
@@ -226,14 +246,19 @@ body {
 
 /*  Modal Companenet */
 
+.modal-body {
+  background-color: $modelColorBG;
+}
+
 .modal-content {
+  background-color: $modelColorBG;
   top: 15vh;
   border-radius: 1rem;
 }
 
 .modal-header {
-  border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
+  border-top-right-radius: .8rem;
+  border-top-left-radius: .8rem;
   padding: 1.5rem;
   background-color: $backgroundColor;
   display: flex;
@@ -262,9 +287,29 @@ body {
 background-color: $backgroundColor;
 }
 
+.roomsHeader {
+  margin: 1rem 0 1rem 1rem;
+  padding: 0;
+}
+
+.room-list {
+  list-style-type: none;
+  margin-left: -1rem;
+}
+
 .room-name {
   text-align: center;
   align-content: center;
+}
+
+.form-control {
+  width: 95%;
+  margin: .3rem;
+}
+
+.room-title  {
+  text-align: center;
+  float: top;
 }
 
 .signin-parent-wrapper {
@@ -359,7 +404,13 @@ width: 100%;
   width: 2.5rem;
   border-radius: 100%;
   margin-right: 1rem;
+  margin-top: 0.25rem;
   float: left;
+}
+
+#dropdown-button-drop-end {
+  margin-top: .5rem;
+  margin-right: -1rem;
 }
 
 //************* SCROLL BAR *******************//
@@ -369,6 +420,39 @@ width: 100%;
 
 ::-webkit-scrollbar-thumb{
   color: $buttonColor
+}
+
+.user-list {
+  width: 100%;
+}
+
+.user-list-item {
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  margin: 0 0 3vh 0;
+}
+
+.user-image {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100%;
+  margin: 0 1rem 0 0.5rem;
+  float: left;
+}
+
+.user-name {
+  margin: 0 1vw 0 0;
+  width: 60%;
+  // vertical-align: middle;
+}
+
+.user-status {
+  vertical-align: middle;
+  margin-right: 1rem;
+  position: relative;
+  right: 0;
+  color: green;
 }
 
 // .top-row {

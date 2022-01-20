@@ -1,13 +1,17 @@
 import React, { useContext, useEffect, useState, createRef } from 'react' 
 import { Link } from 'react-router-dom'
 import AppContext from '../../context/context'
-import { Container, Row, Col, Form, DropdownButton, ButtonGroup } from 'react-bootstrap'
+import { Container, Row, Col, Form, DropdownButton, ButtonGroup, Button } from 'react-bootstrap'
 import Input from './MsgInput'
 import Message from './MessageJSX'
 import RoomTitle from './RoomTitle'
 import createRoom from '../../api/CreateRoom'
 import showRooms from '../../api/ShowRooms'
+import showRoomUsers from '../../api/ShowRoomUsers'
 import { SET_ROOMS_ID } from '../../context/action-types'
+import ServerUserSideBar from '../../shared/ServerUsersSideBar'
+import ModaleCreateRoom from '../../shared/CreateRoomModal'
+import { updateCache, getPfp } from '../../shared/updateCache'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -23,12 +27,37 @@ const MainContent = () => {
   const [components, setComponents] = useState([])
   const [newMessageObj, setNewMessageObj] = useState(null)
   const [roomName, setRoomName] = useState('')
-  const { rooms, userId, token } = state
+  const { rooms, userId, token, serverUsers, cachedPfps } = state
   const [roomsJSX, setRoomsJSX] = useState(null)
+  const [roomUsersJSX, setRoomUsersJSX] = useState(null)
   const [currentRoom, setCurrentRoom] = useState('')
   const [changedRoom, setChangedRoom] = useState('')
   const [currentRoomName, setCurrentRoomName] = useState('')
   const [changedRoomName, setChangedRoomName] = useState('')
+  //const [updatedCache, setUpdatedCache] = useState(true)
+
+  // useEffect(() => {
+  //   updateCache(serverUsers, cachedPfps, dispatch)
+  // }, [serverUsers])
+
+  useEffect(() => {
+    console.log('fetching pfps')
+    console.log('already cached userNames:')
+    console.log(cachedPfps)
+    // console.log('serverUsers:')
+    // console.log(serverUsers)
+    // console.log('cached pfps:')
+    // console.log(cachedPfps)
+    updateCache(serverUsers, cachedPfps, dispatch).then(
+			(result) => {
+				if (result) {
+					//console.log(getPfp('12345'))
+				} else {
+					console.error('failed to cache images')
+				}
+			}
+		)
+  }, [serverUsers])
 
   const changeRoom = (roomId, roomName) => {
     console.log('changing room to: ', roomId)
@@ -36,14 +65,27 @@ const MainContent = () => {
     setChangedRoomName(roomName)
   }
 
+  const showActiveUsers = async () => {
+      let usersArray
+      const response = await showRoomUsers(token, currentRoom)
+      usersArray = response.data.user
+      return usersArray
+  }
+
   useEffect(() => {
     console.log('room has been changed')
     if (changedRoom === currentRoom) {
       return
     } else {
+      console.log('changed room: ', changedRoom)
       setMessages([])
       setCurrentRoom(changedRoom)
       setCurrentRoomName(changedRoomName)
+      showActiveUsers()
+        .then(usersArray => {
+          setRoomUsersJSX(usersArray.map(user => (
+            <li>{`${ user.name }`}</li>
+          )))})
     }
   }, [changedRoom])
 
@@ -78,12 +120,14 @@ const MainContent = () => {
     })
   }, [])
 
-  const onCreateRoom = async (event) => {
+  const onCreateRoom = async (event, func) => {
     event.preventDefault()
     let newArray = []
     console.log(roomName, state.userId)
     const room = await createRoom(roomName, userId, token)
     if (rooms.length > 0) {
+        func()
+
       newArray = [...rooms]
       newArray.push(room.data.room)
     } else {
@@ -95,6 +139,8 @@ const MainContent = () => {
     })
     // state.rooms.push(room.data.room)
     console.log(room)
+
+    
   }
 
   const newMessage = (msg) => {
@@ -126,44 +172,56 @@ const MainContent = () => {
   }, [messages])
 
   return (
-    <Container>
+    <Container className='main-container'>
       {/* Second row - will contain rooms/DMs as well as main content */}
       <Row className='top-row'>
-        <Col className='col-2'>
+        <Col className='col-3 left-side-options'>
           <div className='left-side-nav'>
             <Row>
-              <Col><h4>Rooms</h4></Col>
-              <Col>
-              <DropdownButton
-                as={ButtonGroup}
-                key={'end'}
-                id={`dropdown-button-drop-end`}
-                drop={'end'}
-                variant="secondary"
-                title={<img src='https://icongr.am/clarity/add.svg?size=16' />}
-                >
-                  {/* <Dropdown.Item eventKey='1' as='form' > */}
-                  <Form onSubmit={onCreateRoom}>
-                    <Form.Group controlId='room-name'>
-                      <Form.Control 
+           
+              <Col style={{position:"relative"}}>
+
+              <Col><h4 className='roomsHeader'>Rooms</h4></Col>
+              <ModaleCreateRoom onCreateRoom ={onCreateRoom} roomName={roomName} setRoomName={setRoomName}/>
+
+
+
+              {/* <Button className='create-room-button m-3'> Create Room</Button> */}
+             
+
+                {/* <Dropdown.Item eventKey='1' as='form' > */}
+
+
+
+                  {/* <Form onSubmit={onCreateRoom} className='d-none'>
+                      <Form.Group controlId='room-name'>
+                        <Form.Control 
                         required
                         type='room-name' 
                         name='create-room'
                         value={roomName}
                         placeholder='Enter Room Name'
                         onChange={(e) => setRoomName(e.target.value)} 
-                      />
-                      <button type='submit'>Create</button>
-                    </Form.Group>
-                  </Form>
+                        />
+                        <button type='submit'>Create</button>
+                      </Form.Group>
+                  </Form> */}
+
+
+
+
+                 
                 {/* </Dropdown.Item> */}
-                </DropdownButton>
+              
               </Col>
             </Row>
+
+           
+
             <Row>
               {/* TODO: Make this into its own component */}
               <section className='open-rooms'>
-                <ul>
+                <ul className='room-list'>
                   {roomsJSX}
                 </ul>
               </section>
@@ -171,11 +229,8 @@ const MainContent = () => {
           </div>
           {/* Ayoub this is your spot to add active users */}
             <Row className='active-users'>
-              <li>Tony</li>
-              <li>Ayoub</li>
-              <li>Jonah</li>
-              <li>Hanif</li>
-              <li>Bill</li>
+            <h4 className='roomsHeader'>Users</h4>
+                <ServerUserSideBar />
             </Row>
         </Col>
         <Col className='main-content col-9'>
