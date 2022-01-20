@@ -16,7 +16,7 @@ const ModaleCreateRoom = ({setRoomName, onCreateRoom, roomName }) => {
           <span className='create-room-span'>+</span>
       </Button>
 
-      <Modal show={show} onHide={handleClose} >
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title className='createRoom-modal-title'>Create Room</Modal.Title>
         </Modal.Header>

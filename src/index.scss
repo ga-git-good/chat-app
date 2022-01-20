@@ -211,7 +211,7 @@ button {
 }
 
 .message-input {
-  width: 92%;
+  width: 90%;
   margin: 0.5rem;
   background: $inputBackground;
 }
@@ -231,7 +231,7 @@ button {
 
 .message-text {
   display: flex;
-  width: 93%;
+  width: 90%;
   
 }
 
@@ -404,6 +404,7 @@ width: 100%;
   width: 2.5rem;
   border-radius: 100%;
   margin-right: 1rem;
+  margin-top: 0.25rem;
   float: left;
 }
 

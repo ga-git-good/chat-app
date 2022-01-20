@@ -15,7 +15,7 @@ const Modale = ({title}) => {
         Change Password
       </NavLink>
 
-      <Modal show={show} onHide={handleClose} >
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title className='changePass-modal-title'>Change Password</Modal.Title>
         </Modal.Header>
