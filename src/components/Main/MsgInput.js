@@ -4,7 +4,9 @@ import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
 import apiUrl from '../../apiConfig';
 
-const MsgInput = ({received, room, roomOwner }) => {
+
+
+const MsgInput = ({received, room, deleteRoom }) => {
   const { state, dispatch } = useContext(AppContext)
   const { loggedIn, userId, token, userName } = state
 
@@ -56,15 +58,6 @@ const MsgInput = ({received, room, roomOwner }) => {
       socket.emit('join', { roomId: room })
     }
   }, [room])
-
-  export const deleteRoom = (roomId) => {
-    const data = {
-      roomId: roomId,
-			timestamp: new Date().toLocaleString(),
-      userId: userId
-    }
-    socket.emit('delete-room', data)
-  }
 
   const sendMessage = (event) => {
     event.preventDefault()

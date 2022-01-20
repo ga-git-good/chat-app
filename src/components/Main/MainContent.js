@@ -12,7 +12,8 @@ import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
-import { deleteRoom } from '../../components/Main/MsgInput'
+import { io } from 'socket.io-client'
+import apiUrl from '../../apiConfig';
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -60,10 +61,27 @@ const MainContent = () => {
 		)
   }, [serverUsers])
 
+  const socket = io(apiUrl, {
+    withCredentials: false,
+    query: {
+      token:
+        token,
+    },
+  })
+
   const changeRoom = (roomId, roomName) => {
     console.log('changing room to: ', roomId)
     setChangedRoom(roomId)
     setChangedRoomName(roomName)
+  }
+
+  const deleteRoom = (roomId) => {
+    const data = {
+      roomId: roomId,
+			timestamp: new Date().toLocaleString(),
+      userId: userId
+    }
+    socket.emit('delete-room', data)
   }
 
   const showActiveUsers = async () => {
@@ -245,7 +263,7 @@ const MainContent = () => {
                 <AlwaysScrollToBottom />
               </ul>
             </section>
-            <Input received={newMessage} room={currentRoom} />
+            <Input received={newMessage} room={currentRoom} deleteRoom={deleteRoom} />
             {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>
