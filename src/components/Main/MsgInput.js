@@ -2,6 +2,7 @@ import { io } from 'socket.io-client'
 import React, { useState, useEffect, useHistory, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
+import apiUrl from '../../apiConfig';
 
 const MsgInput = ({received, room}) => {
   const { state, dispatch } = useContext(AppContext)
@@ -23,7 +24,7 @@ const MsgInput = ({received, room}) => {
       return
     }
     console.log('connecting socket')
-    const socket = io('localhost:3040', {
+    const socket = io(apiUrl, {
 			withCredentials: false,
 			query: {
 				token:
