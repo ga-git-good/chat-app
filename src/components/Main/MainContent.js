@@ -61,14 +61,6 @@ const MainContent = () => {
 		)
   }, [serverUsers])
 
-  const socket = io(apiUrl, {
-    withCredentials: false,
-    query: {
-      token:
-        token,
-    },
-  })
-
   const changeRoom = (roomId, roomName) => {
     console.log('changing room to: ', roomId)
     setChangedRoom(roomId)
@@ -81,7 +73,7 @@ const MainContent = () => {
 			timestamp: new Date().toLocaleString(),
       userId: userId
     }
-    socket.emit('delete-room', data)
+    window.socket.emit('delete-room', data)
   }
 
   const showActiveUsers = async () => {
@@ -109,12 +101,14 @@ const MainContent = () => {
   }, [changedRoom])
 
   useEffect(() => {
-    if (rooms) {
+    if (rooms.length > 0) {
       console.log(rooms)
+      console.log(rooms[0].owner)
+      console.log(userId)
       setRoomsJSX(rooms.map(room => (
         <li key={`${room._id}`}>
           <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
-          {room.owner === userId ? <img src="https://icongr.am/octicons/trash.svg?size=8" onClick={deleteRoom(room._id)} /> : null }
+          <img src="https://icongr.am/octicons/trash.svg?size=10&color=FFFFFF" onClick={() => deleteRoom(room.name) } />
         </li>
       )))
     }

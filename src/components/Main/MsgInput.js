@@ -34,6 +34,7 @@ const MsgInput = ({received, room, deleteRoom }) => {
 			},
 		})
     socket.on('connect', () => {
+      window.socket = socket
       console.log('connected!')
     })
     socket.on('loggedin', (res) => {
