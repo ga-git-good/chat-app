@@ -237,37 +237,43 @@ const MainContent = () => {
                       </Form.Group>
                   </Form> */}
 
-								{/* </Dropdown.Item> */}
-							</Col>
-						</Row>
 
-						<Row>
-							{/* TODO: Make this into its own component */}
-							<section className='open-rooms'>
-								<ul className='room-list'>{roomsJSX}</ul>
-							</section>
-						</Row>
-					</div>
-					{/* Ayoub this is your spot to add active users */}
-					<Row className='active-users'>
-						<h4 className='roomsHeader'>Users</h4>
-						<ServerUserSideBar />
-					</Row>
-				</Col>
-				<Col className='main-content col-9'>
-					<Row>
-						<RoomTitle room={currentRoomName} />
-					</Row>
-					<section className='messages-window'>
-						<ul className='messages'>
-							{currentRoom
-								? components
-								: 'No room selected. Please join a room to start a conversation!'}
-							<AlwaysScrollToBottom />
-						</ul>
-					</section>
-					<Input received={newMessage} room={currentRoom} />
-					{/* <form className='message-input-window'>
+
+                 
+                {/* </Dropdown.Item> */}
+              
+              </Col>
+            </Row>
+
+           
+
+            <Row>
+              {/* TODO: Make this into its own component */}
+              <section className='open-rooms'>
+                <ul className='room-list'>
+                  {roomsJSX}
+                </ul>
+              </section>
+            </Row>
+          </div>
+          {/* Ayoub this is your spot to add active users */}
+            <Row className='active-users'>
+                <h4 className='roomsHeader'>Users</h4>
+                <ServerUserSideBar currentRoom={currentRoom} />
+            </Row>
+        </Col>
+        <Col className='main-content col-9'>
+          <Row>
+            <RoomTitle room={currentRoomName} />
+          </Row>
+            <section className='messages-window'>
+              <ul className='messages'>
+                {currentRoom ? components : 'No room selected. Please join a room to start a conversation!'}
+                <AlwaysScrollToBottom />
+              </ul>
+            </section>
+            <Input received={newMessage} room={currentRoom} />
+            {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>
             </form> */}
