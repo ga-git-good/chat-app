@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { Route } from 'react-router-dom'
 import AppContext from './context/context'
 import reducer from './context/reducer'
@@ -19,12 +19,13 @@ const initialState = {
     shouldSaveState: false,
 		userName: null,
 		rooms: [],
-		serverUsers: []
+		serverUsers: [],
+		cachedPfps: []
 }
 
 const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
-
+		
     return (
 				<AppContext.Provider value={{ state, dispatch }}>
 					<Header />
