@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap'
 import { NavLink, Route } from 'react-router-dom'
 import ChangePassword from '../components/auth/ChangePassword'
 
-const Modale = () => {
+const Modale = ({title}) => {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)

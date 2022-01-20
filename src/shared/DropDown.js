@@ -24,7 +24,7 @@ const DropDown = ({user}) => {
             Upload image
           </NavLink>
 
-          <Modale/>
+          <Modale />
 
 
           <Dropdown.Divider className='divider'/>

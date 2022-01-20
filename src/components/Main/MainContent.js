@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, createRef } from 'react' 
 import { Link } from 'react-router-dom'
 import AppContext from '../../context/context'
-import { Container, Row, Col, Form, DropdownButton, ButtonGroup } from 'react-bootstrap'
+import { Container, Row, Col, Form, DropdownButton, ButtonGroup, Button } from 'react-bootstrap'
 import Input from './MsgInput'
 import Message from './MessageJSX'
 import RoomTitle from './RoomTitle'
@@ -10,6 +10,7 @@ import showRooms from '../../api/ShowRooms'
 import showRoomUsers from '../../api/ShowRoomUsers'
 import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
+import ModaleCreateRoom from '../../shared/CreateRoomModal'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -94,12 +95,14 @@ const MainContent = () => {
     })
   }, [])
 
-  const onCreateRoom = async (event) => {
+  const onCreateRoom = async (event, func) => {
     event.preventDefault()
     let newArray = []
     console.log(roomName, state.userId)
     const room = await createRoom(roomName, userId, token)
     if (rooms.length > 0) {
+        func()
+
       newArray = [...rooms]
       newArray.push(room.data.room)
     } else {
@@ -111,6 +114,8 @@ const MainContent = () => {
     })
     // state.rooms.push(room.data.room)
     console.log(room)
+
+    
   }
 
   const newMessage = (msg) => {
@@ -148,34 +153,46 @@ const MainContent = () => {
         <Col className='col-2'>
           <div className='left-side-nav'>
             <Row>
+           
+              <Col style={{position:"relative"}}>
+
               <Col><h4 className='roomsHeader'>Rooms</h4></Col>
-              <Col>
-              <DropdownButton
-                as={ButtonGroup}
-                key={'end'}
-                id={`dropdown-button-drop-end`}
-                drop={'end'}
-                variant="secondary"
-                title={<img src='https://icongr.am/clarity/add.svg?size=16' />}
-                >
-                  {/* <Dropdown.Item eventKey='1' as='form' > */}
-                  <Form onSubmit={onCreateRoom}>
-                    <Form.Group controlId='room-name'>
-                      <Form.Control 
+              <ModaleCreateRoom onCreateRoom ={onCreateRoom} roomName={roomName} setRoomName={setRoomName}/>
+
+
+
+              {/* <Button className='create-room-button m-3'> Create Room</Button> */}
+             
+
+                {/* <Dropdown.Item eventKey='1' as='form' > */}
+
+
+
+                  {/* <Form onSubmit={onCreateRoom} className='d-none'>
+                      <Form.Group controlId='room-name'>
+                        <Form.Control 
                         required
                         type='room-name' 
                         name='create-room'
                         value={roomName}
                         placeholder='Enter Room Name'
                         onChange={(e) => setRoomName(e.target.value)} 
-                      />
-                      <button type='submit'>Create</button>
-                    </Form.Group>
-                  </Form>
+                        />
+                        <button type='submit'>Create</button>
+                      </Form.Group>
+                  </Form> */}
+
+
+
+
+                 
                 {/* </Dropdown.Item> */}
-                </DropdownButton>
+              
               </Col>
             </Row>
+
+           
+
             <Row>
               {/* TODO: Make this into its own component */}
               <section className='open-rooms'>
