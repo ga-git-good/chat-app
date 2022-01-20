@@ -9,18 +9,34 @@ const ServerUserSideBar = () => {
   const { serverUsers, token } = state
   const [serverUsersJSX, setServerUsersJSX] = useState(null)
 
-  useEffect(async () => {
+  // useEffect(async () => {
+  //   let usersArray
+  //   const response = await ShowServerUsers(token)
+  //   console.log('users array : ', response.data.user)
+  //   usersArray = response.data.user
+  //   await dispatch({
+  //     type: SET_SERVER_USERS,
+  //     payload: usersArray
+  //   })
+    
+    
+  // }, []);
+
+  const updateUsers = async () => {
+    // console.log('updating users...')
     let usersArray
     const response = await ShowServerUsers(token)
-    console.log('users array : ', response.data.user)
+    // console.log('users array : ', response.data.user)
     usersArray = response.data.user
     await dispatch({
       type: SET_SERVER_USERS,
       payload: usersArray
     })
-    
-    
-  }, []);
+  }
+
+  useEffect(() => {
+    setInterval(updateUsers, 5000)
+  }, [])
 
   useEffect(async () => {
     console.log('server users: ', serverUsers)
