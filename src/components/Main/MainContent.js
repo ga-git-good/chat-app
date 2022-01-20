@@ -132,7 +132,7 @@ const MainContent = () => {
         <Col className='col-2'>
           <div className='left-side-nav'>
             <Row>
-              <Col><h4>Rooms</h4></Col>
+              <Col><h4 className='roomsHeader'>Rooms</h4></Col>
               <Col>
               <DropdownButton
                 as={ButtonGroup}
