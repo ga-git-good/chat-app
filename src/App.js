@@ -18,7 +18,8 @@ const initialState = {
     token: null,
     shouldSaveState: false,
 		userName: null,
-		rooms: []
+		rooms: [],
+		serverUsers: []
 }
 
 const App = () => {
