@@ -13,6 +13,7 @@ import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
+import messageHistory from '../../api/messageHistory'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -45,6 +46,9 @@ const MainContent = () => {
     // console.log('fetching pfps')
     // console.log('already cached userNames:')
     // console.log(cachedPfps)
+    if (!serverUsers || serverUsers.length === 0) {
+      return
+    }
     // console.log('serverUsers:')
     // console.log(serverUsers)
     // console.log('cached pfps:')
@@ -74,11 +78,11 @@ const MainContent = () => {
   }
 
   useEffect(() => {
-    console.log('room has been changed')
+    //console.log('room has been changed')
     if (changedRoom === currentRoom) {
       return
     } else {
-      console.log('changed room: ', changedRoom)
+      //console.log('changed room: ', changedRoom)
       setMessages([])
       setCurrentRoom(changedRoom)
       setCurrentRoomName(changedRoomName)
@@ -89,6 +93,24 @@ const MainContent = () => {
           )))})
     }
   }, [changedRoom])
+
+  useEffect(() => {
+    messageHistory(token, currentRoom)
+    .then(response => {
+      console.log('MESSAGE HISTORY')
+      if (!response) {
+        return
+      }
+      const messageObjs = response.map(message => ({
+        userName: message.userName,
+        timestamp: message.sentAt,
+        message: message.text
+      }))
+      console.log('FETCHED HISTORY')
+      console.log(messageObjs)
+      setMessages(messageObjs)
+    })
+  }, [currentRoom])
 
   useEffect(() => {
     if (rooms) {
@@ -105,7 +127,7 @@ const MainContent = () => {
     let newArray = []
     const response = await showRooms(token)
     const existingRooms = response.data.room
-    console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
+    //console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
     if (!rooms || !rooms[0]) {
       existingRooms.forEach(existingRoom => {
         if (existingRoom.validUsers.includes(userId)) {
