@@ -2,7 +2,6 @@ import React, { Fragment, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Dropdown } from 'react-bootstrap'
 
-import '../../all-styles/Header.scss'
 import AppContext from '../../context/context'
 import DropDown from '../../shared/DropDown'
 
