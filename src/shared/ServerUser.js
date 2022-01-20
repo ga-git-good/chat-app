@@ -10,9 +10,9 @@ const ServerUser = ({ name, status }) => {
 
   return (
     <>
-        <img col='1' className='userImage' src={imgUrl}></img>
-        <span>{name}</span>
-        <span>{status}</span>
+        <img col='1' className='user-image' src={imgUrl}></img>
+        <span className='user-name'>{name}</span>
+        <span className='user-status'>{status}</span>
     </>
   )
 }
