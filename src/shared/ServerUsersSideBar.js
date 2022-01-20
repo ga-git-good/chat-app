@@ -1,4 +1,4 @@
-import React, { useEffect, userState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import AppContext from '../context/context'
 import { SET_SERVER_USERS } from '../context/action-types'
 import ShowServerUsers from '../api/ShowServerUsers'
@@ -7,22 +7,29 @@ import ServerUser from './ServerUser'
 const ServerUserSideBar = () => {
   const { state, dispatch } = useContext(AppContext)
   const { serverUsers, token } = state
-  const [serverUsersJSX, setServerUsersJSX] = userState(null)
+  const [serverUsersJSX, setServerUsersJSX] = useState(null)
 
   useEffect(async () => {
     let usersArray
     const response = await ShowServerUsers(token)
-    usersArray = response
-    dispatch({
+    console.log('users array : ', response.data.user)
+    usersArray = response.data.user
+    await dispatch({
       type: SET_SERVER_USERS,
       payload: usersArray
     })
+    
+    
+  }, []);
+
+  useEffect(async () => {
+    console.log('server users: ', serverUsers)
     setServerUsersJSX(serverUsers.map(user => (
-      <li>
-        <ServerUser name={user.name} status={user.status}></ServerUser>
+      <li key={user._id} >
+        <ServerUser name={user.userName} status={user.status}></ServerUser>
       </li>
     )))
-  }, []);
+  }, [serverUsers])
 
   return (
       <ul>
