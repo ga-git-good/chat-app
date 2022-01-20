@@ -1,0 +1,26 @@
+/* OffCanvas Componenet */
+
+.dropdown-username {
+  color: white;
+  padding: 2px 8px;
+  position: relative;
+}
+
+.dropdown-menu {
+  background-color:white;
+  width: 12rem;
+}
+
+.dropdown-menu {
+  text-align: center !important;
+  inset: 0px -12px auto auto !important;
+  transform: translate(0px, 43px) !important;
+}
+
+.divider {
+  margin: 0;
+}
+
+.parent-dropdown-wrapper .nav-link:hover {
+background-color: #eee;
+}

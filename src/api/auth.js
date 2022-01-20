@@ -2,7 +2,7 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const signUp = (credentials) => {
-  console.log(credentials)
+  //console.log(credentials)
   return axios({
     method: 'POST',
     url: apiUrl + '/sign-up/',
@@ -11,10 +11,26 @@ export const signUp = (credentials) => {
         email: credentials.email,
         password: credentials.password,
         password_confirmation: credentials.passwordConfirmation,
-        userName: credentials.userName
+        userName: credentials.userName,
+        pfpType: credentials.pfpType
       }
-    }
+    },
   })
+}
+
+export const uploadPfp = async (file, userName) => {
+  const buffer = file
+  console.log('buffer:')
+  console.log(buffer)
+  //console.log(buffer)
+  const formData = new FormData()
+	formData.append('pfp', buffer)
+  const options = {
+		method: 'POST',
+		body: formData,
+	}
+  console.log(options)
+	return fetch(apiUrl + '/upload/' + userName, options)
 }
 
 export const signIn = (credentials) => {
@@ -41,6 +57,7 @@ export const signOut = (token) => {
 }
 
 export const changePassword = (passwords, token) => {
+  console.log(passwords, token,"Hello thereerer");
   return axios({
     url: apiUrl + '/change-password/',
     method: 'PATCH',
@@ -49,8 +66,8 @@ export const changePassword = (passwords, token) => {
     },
     data: {
       passwords: {
-        old: passwords.oldPassword,
-        new: passwords.newPassword
+        old: passwords.old,
+        new: passwords.new,
       }
     }
   })

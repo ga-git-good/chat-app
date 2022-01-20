@@ -2,6 +2,7 @@ import { io } from 'socket.io-client'
 import React, { useState, useEffect, useHistory, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
+import apiUrl from '../../apiConfig';
 
 const MsgInput = ({received, room}) => {
   const { state, dispatch } = useContext(AppContext)
@@ -23,7 +24,7 @@ const MsgInput = ({received, room}) => {
       return
     }
     console.log('connecting socket')
-    const socket = io('localhost:3040', {
+    const socket = io(apiUrl, {
 			withCredentials: false,
 			query: {
 				token:
@@ -50,7 +51,7 @@ const MsgInput = ({received, room}) => {
   // Join a room
   // TODO
   useEffect(() => {
-    console.log('seeing this pop up here as well')
+    console.log('seeing this pop up here as well', room)
     if (room) {
       socket.emit('join', { roomId: room })
     }
@@ -64,7 +65,6 @@ const MsgInput = ({received, room}) => {
     const msg = {
 			message: messageText,
 			roomId: room,
-			image: 'https://i.imgur.com/wtxZVbP.png',
 			timestamp: new Date().toLocaleString(),
       userName: userName
 		}
@@ -75,10 +75,17 @@ const MsgInput = ({received, room}) => {
   }
 
   return (
-		<form className='message-input-window' onSubmit={sendMessage}>
-			<input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
-			<button type='submit' className='send-message'>Send</button>
-		</form>
+		<>
+			{room !== '' ? 
+      
+        <form className='message-input-window' onSubmit={sendMessage}>
+          <input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
+          <button type='submit' className='send-message'>Send</button>
+        </form>
+        
+       : '' }
+    </>
+		
 	)
   // Version requiring auth:
   // return loggedIn

@@ -1,40 +1,182 @@
 @import '~bootstrap/scss/bootstrap';
+@import './all-styles/colors.scss';
 
-
-// .top-row {
-//   margin: 0 auto;
-// }
-
-// .top-nav {
-//   display: flex;
-//   align-items: flex-end;
-//   justify-content: right;
-//   padding: 0;
-//   margin: 1rem;
-//   border: 1px solid black;
-// }
-
-// .nav-link {
-//   border: 1px solid black;
-//   display: inline-flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: row;
-//   margin: 1rem !important;
-// }
+body {
+  background-color: $backgroundColor;
+  color: $fontColor
+}
 
 .active-users {
   width: 100%;
   margin: 0 !important;
   height: 40vh;
-  border: 1px solid black;
+  border: 1px solid $borderColor;
+  border-radius: 1rem;
+}
+
+.all-fields-required {
+  font-size: 1rem;
+  font-style: italic;
+  color: red;
+  padding-top: .5rem;
+}
+
+.btn, button{
+   background-color: $buttonColor;
+   color: $fontColor;
+ }
+
+ .btn-close {
+  background-color: red;
+}
+
+.changePass-parent-wrapper {
+  background-color: $modelColorBG;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  }
+  
+  .changePass-form-wrapper {
+    background-color: $modelColorBG;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    padding-top: 1rem;
+    width: 25rem;
+  }
+  
+  .changePass-header3 {
+    text-align: center;
+    padding: .5rem;
+    letter-spacing: 0.2rem;
+    color: rgb(115, 115, 115);
+  }
+  
+  .changePass-form button {
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  .changePass-form input {
+    margin-bottom: 1rem;
+   }
+  
+   .changePass-form label {
+    margin: 0px;
+    color: #bbb;
+   }
+ 
+.changePass-modal-title {
+  padding:10px;
+  position: absolute;
+  text-align: center;
+  padding: .5rem;
+  letter-spacing: 0.2rem;
+  color: white
+}
+
+.dropdown-username {
+  color: white;
+  padding: 2px 8px;
+  position: relative;
+}
+
+.dropdown-menu {
+  background-color: $modelColorBG;
+  width: 12rem;
+}
+
+.dropdown-menu {
+  text-align: center !important;
+  inset: 0px -12px auto auto !important;
+  transform: translate(0px, 43px) !important;
+}
+
+.divider {
+  margin: 0;
+}
+
+.form-control, input {
+  background-color: black;
+  border-color: $fontColor;
+}
+
+ /* Header componenet wrapper div */
+
+.header-wrapper {
+  background-color: $backgroundColor;
+  padding: .5rem;
+  font-size: 1.2rem;
+  width: 100vw;
+
+}
+
+/* logo wrapper in header 2nd div */
+.logo-wrapper{
+  margin-left: 1rem;
+}
+
+
+/* Logo text span */
+.logo-text {
+  border-radius: 10px;
+  color: white;
+  padding: 0.4rem;
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+}
+
+/* Navbar all links (NavLink) */
+.link {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #777;
+  letter-spacing: 0.16vw;
+}
+
+/* Links wrapper Login and Register */
+.links-group-1 {
+  display: flex;
+  position: absolute;
+  top: 2vh;
+  right: 1vw;
+}
+
+/* login and register links */
+.login, .register{
+  color: white;
+  margin-left: 1rem;
+}
+
+.left-side-nav.col-2.col {
+  height: 30vh;
+  margin: 1rem;
+  border: 1px solid $borderColor;
+  border-color: $borderColor;
+  border-radius: 1rem;
+  margin-top: 2rem;
+}
+
+/* Logo text span */
+.logo-text {
+  background-color: $backgroundColor;
+  border-radius: 10px;
+  color: $fontColor;
+  padding: 0.4rem;
+  display: inline-block;
+  font-size: 1rem;
+
 }
 
 .left-side-nav {
   height: 30vh;
-  margin: 1rem 0;
-  padding: 1rem;
-  border: 1px solid black;
+  margin: 1rem;
+  border: 1px solid $borderColor;
+  border-radius: 1rem;
+  color: $fontColor;
 }
 
 .main-content {
@@ -51,6 +193,7 @@
 .message-input {
   width: 80%;
   margin: 0.5rem;
+  background: black;
 }
 
 .message-input-window {
@@ -75,10 +218,141 @@
 .messages-window {
   height: 70vh;
   margin: 1rem;
-  border: 1px solid black;
+  border: 1px solid $borderColor;
   overflow-y: scroll;
-  
+  background-color: $messageBoxBG;
+  border-radius: 1rem;
 }
+
+/*  Modal Companenet */
+
+.modal-content {
+  top: 15vh;
+  border-radius: 1rem;
+}
+
+.modal-header {
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  padding: 1.5rem;
+  background-color: $backgroundColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: $fontColor;
+  letter-spacing: 0.16vw;
+}
+
+.nav-links-group-1 {
+  display: flex;
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+}
+
+.OffCanvas-wrapper {
+  width: 22vw;
+}
+
+.parent-dropdown-wrapper .nav-link:hover {
+background-color: $backgroundColor;
+}
+
+.room-name {
+  text-align: center;
+  align-content: center;
+}
+
+.signin-parent-wrapper {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 70vh;
+width: 100%;
+}
+
+/* sign in form wrapper - 2nd div in sign in return */
+.signin-form-wrapper {
+  background-color: $modelColorBG;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  width: 25rem;
+}
+
+/* Sign in header3 */
+.signin-header3 {
+  text-align: center;
+  letter-spacing: 0.2rem;
+  color: $fontColor;
+}
+
+/* submit button in sign in form  */
+.signin-form button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+/* inputs in sign in form  */
+.signin-form input {
+  margin-bottom: 1rem;
+ }
+
+ /* labels in sign in form  */
+ .signin-form label {
+  margin: 0px;
+  color: $fontColor;
+ }
+ ///
+
+ /*  Sign up Component */
+
+/* sign up parent wrapper - 1st div in sign up return */
+.signup-parent-wrapper {
+  background-color: $backgroundColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+  }
+  
+  /* sign up form wrapper - 2nd div in sign up return */
+  .signup-form-wrapper {
+    background-color: $modelColorBG;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    width: 30rem;
+  }
+  
+  /* Sign up header3 */
+  .signup-header3 {
+    text-align: center;
+    letter-spacing: 0.2rem;
+    color: $fontColor;
+  }
+  
+  /* submit button in sign up form  */
+  .signup-form button {
+    margin-top: 1rem;
+    width: 100%;
+    color: $fontColor;
+  }
+
+/* inputs in sign up form  */
+  .signup-form input {
+   margin-bottom: .7rem;
+  }
+
+/* labels in sign up form  */
+  .signup-form label {
+   margin: 0px;
+   color: $fontColor;
+  }
+
 
 .userImage {
   height: 2.5rem;
@@ -87,3 +361,34 @@
   margin-right: 1rem;
   float: left;
 }
+
+//************* SCROLL BAR *******************//
+::-webkit-scrollbar {
+  background-color: rgba(0,0,0,0);
+}
+
+::-webkit-scrollbar-thumb{
+  color: $buttonColor
+}
+
+// .top-row {
+//   margin: 0 auto;
+// }
+
+// .top-nav {
+//   display: flex;
+//   align-items: flex-end;
+//   justify-content: right;
+//   padding: 0;
+//   margin: 1rem;
+//   border: 1px solid black;
+// }
+
+// .nav-link {
+//   border: 1px solid black;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: row;
+//   margin: 1rem !important;
+// }

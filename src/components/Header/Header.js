@@ -1,26 +1,24 @@
 import React, { Fragment, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Dropdown } from 'react-bootstrap'
 
-import '../../all-styles/Header.css'
 import AppContext from '../../context/context'
-import OffCanvas from '../../shared/OffCanvas'
+import DropDown from '../../shared/DropDown'
 
-
-
-const authenticatedOptions = (user) => { return (
-<>
-
-<OffCanvas user={user}/>
-</>
- 
-)}
+const authenticatedOptions = (user) => {
+  return (
+    <>
+      <DropDown user={user}/>
+    </>
+  )
+}
 
 const unauthenticatedOptions = (
   <Fragment>
-    <NavLink to='/sign-in' className='nav-link'>
+    <NavLink to='/sign-in' className='link login'>
       Login
     </NavLink>
-    <NavLink to='/sign-up' className='nav-link'>
+    <NavLink to='/sign-up' className='link register'>
       Register
     </NavLink>
   </Fragment>
@@ -38,16 +36,16 @@ const Header = () => {
 
   return (
     <div className='header-wrapper'>
-      <div className='brand'>
-        <NavLink to='/' className='nav-link'>
-          <span className='logo-text'>Chat GA</span>
+      <div className='logo-wrapper'>
+        <NavLink to='/' className='link'>
+          <span className='logo-text'>Chat APP</span>
         </NavLink>
       </div>
 
-      <div className='nav-links-group-1'>
+      <div className='links-group-1'>
         {user.loggedIn ? authenticatedOptions(user) : unauthenticatedOptions}
       </div>
-    </div>   
+    </div>
   )
 }
 
