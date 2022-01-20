@@ -40,11 +40,13 @@ const ServerUserSideBar = () => {
 
   useEffect(async () => {
     console.log('server users: ', serverUsers)
-    setServerUsersJSX(serverUsers.map(user => (
-      <li key={user._id} className='user-list-item'>
-        <ServerUser name={user.userName} status={user.status}></ServerUser>
-      </li>
-    )))
+    if (serverUsers) {
+      setServerUsersJSX(serverUsers.map(user => (
+        <li key={user._id} className='user-list-item'>
+          <ServerUser name={user.userName} status={user.status}></ServerUser>
+        </li>
+      )))
+    }
   }, [serverUsers])
 
   return (
