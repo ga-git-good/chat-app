@@ -1,7 +1,7 @@
 import React, { useEffect, userState } from 'react'
 import AppContext from '../context/context'
 import { SET_SERVER_USERS } from '../context/action-types'
-import showServerUsers from '../api/showServerUsers'
+import ShowServerUsers from '../api/ShowServerUsers'
 
 const ServerUserSideBar = () => {
   const { state, dispatch } = useContext(AppContext)
@@ -10,7 +10,7 @@ const ServerUserSideBar = () => {
 
   useEffect(async () => {
     let usersArray
-    const response = await showServerUsers(token)
+    const response = await ShowServerUsers(token)
     usersArray = response
     dispatch({
       type: SET_SERVER_USERS,
