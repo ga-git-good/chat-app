@@ -7,6 +7,7 @@ import Message from './MessageJSX'
 import RoomTitle from './RoomTitle'
 import createRoom from '../../api/CreateRoom'
 import showRooms from '../../api/ShowRooms'
+import showRoomUsers from '../../api/ShowRoomUsers'
 import { SET_ROOMS_ID } from '../../context/action-types'
 
 const AlwaysScrollToBottom = () => {
@@ -25,6 +26,7 @@ const MainContent = () => {
   const [roomName, setRoomName] = useState('')
   const { rooms, userId, token } = state
   const [roomsJSX, setRoomsJSX] = useState(null)
+  const [roomUsersJSX, setRoomUsersJSX] = useState(null)
   const [currentRoom, setCurrentRoom] = useState('')
   const [changedRoom, setChangedRoom] = useState('')
   const [currentRoomName, setCurrentRoomName] = useState('')
@@ -44,6 +46,14 @@ const MainContent = () => {
       setMessages([])
       setCurrentRoom(changedRoom)
       setCurrentRoomName(changedRoomName)
+      (async () => {
+        let usersArray
+        const response = await showRoomUsers(token, currentRoom)
+        usersArray = response
+        setRoomUsersJSX(usersArray.map(user => (
+          <li>{`${ user.name }`}</li>
+        )))
+      })()
     }
   }, [changedRoom])
 
@@ -171,11 +181,7 @@ const MainContent = () => {
           </div>
           {/* Ayoub this is your spot to add active users */}
             <Row className='active-users'>
-              <li>Tony</li>
-              <li>Ayoub</li>
-              <li>Jonah</li>
-              <li>Hanif</li>
-              <li>Bill</li>
+              <ul>{roomUsersJSX}</ul>
             </Row>
         </Col>
         <Col className='main-content col-9'>
