@@ -44,6 +44,9 @@ const MainContent = () => {
     console.log('fetching pfps')
     console.log('already cached userNames:')
     console.log(cachedPfps)
+    if (!serverUsers || serverUsers.length === 0) {
+      return
+    }
     // console.log('serverUsers:')
     // console.log(serverUsers)
     // console.log('cached pfps:')
