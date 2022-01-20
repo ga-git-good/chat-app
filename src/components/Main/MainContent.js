@@ -179,7 +179,7 @@ const MainContent = () => {
             <Row>
               {/* TODO: Make this into its own component */}
               <section className='open-rooms'>
-                <ul>
+                <ul className='room-list'>
                   {roomsJSX}
                 </ul>
               </section>

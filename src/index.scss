@@ -1,6 +1,9 @@
 @import '~bootstrap/scss/bootstrap';
 @import './all-styles/colors.scss';
 
+a {
+  color: $borderColor;
+}
 body {
   background-color: $backgroundColor;
   color: $fontColor
@@ -277,6 +280,11 @@ background-color: $backgroundColor;
 .roomsHeader {
   margin-left: 1rem;
   margin-top: .5rem;
+}
+
+.room-list {
+  list-style-type: none;
+  margin-left: -1rem;
 }
 
 .room-name {

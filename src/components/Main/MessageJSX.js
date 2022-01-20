@@ -2,7 +2,7 @@ import React from 'react'
 import apiUrl from '../../apiConfig'
 
 const timeStampStyle = {
-	color: 'rgba(123, 115, 115, 0.70)',
+	color: 'rgba(123, 115, 115, .85)',
 }
 
 const Message = (props) => {
