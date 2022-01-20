@@ -47,16 +47,16 @@ const MainContent = () => {
     // console.log(serverUsers)
     // console.log('cached pfps:')
     // console.log(cachedPfps)
-    updateCache([{userName: 'jonah2', _id: '123'}], [], dispatch).then(result => {
-      if (result) {
-        console.log('cached userNames:')
-        console.log(cachedPfps)
-        console.log(getPfp('12345'))
-      } else {
-        console.log('failed to cache images')
-      }
-    })
-  }, [])
+    updateCache(serverUsers, cachedPfps, dispatch).then(
+			(result) => {
+				if (result) {
+					//console.log(getPfp('12345'))
+				} else {
+					console.error('failed to cache images')
+				}
+			}
+		)
+  }, [serverUsers])
 
   const changeRoom = (roomId, roomName) => {
     console.log('changing room to: ', roomId)
