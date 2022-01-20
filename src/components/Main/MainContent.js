@@ -39,22 +39,27 @@ const MainContent = () => {
     setChangedRoomName(roomName)
   }
 
+  const showActiveUsers = async () => {
+      let usersArray
+      const response = await showRoomUsers(token, currentRoom)
+      usersArray = response.data.user
+      return usersArray
+  }
+
   useEffect(() => {
     console.log('room has been changed')
     if (changedRoom === currentRoom) {
       return
     } else {
+      console.log('changed room: ', changedRoom)
       setMessages([])
       setCurrentRoom(changedRoom)
       setCurrentRoomName(changedRoomName)
-      (async () => {
-        let usersArray
-        const response = await showRoomUsers(token, currentRoom)
-        usersArray = response
-        setRoomUsersJSX(usersArray.map(user => (
-          <li>{`${ user.name }`}</li>
-        )))
-      })()
+      showActiveUsers()
+        .then(usersArray => {
+          setRoomUsersJSX(usersArray.map(user => (
+            <li>{`${ user.name }`}</li>
+          )))})
     }
   }, [changedRoom])
 
