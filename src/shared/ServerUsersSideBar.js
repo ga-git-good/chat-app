@@ -1,8 +1,9 @@
 import React, { useEffect, userState } from 'react'
-import { SET_SERVER_USERS } from '../context/action-types';
-import showServerUsers from '../api/showServerUsers';
+import AppContext from '../context/context'
+import { SET_SERVER_USERS } from '../context/action-types'
+import showServerUsers from '../api/showServerUsers'
 
-const serverUserSideBar = () => {
+const ServerUserSideBar = () => {
   const { state, dispatch } = useContext(AppContext)
   const { serverUsers, token } = state
   const [serverUsersJSX, setServerUsersJSX] = userState(null)
@@ -15,13 +16,12 @@ const serverUserSideBar = () => {
       type: SET_SERVER_USERS,
       payload: usersArray
     })
-    setServerUsersJSX(usersArray.map(user => (
+    setServerUsersJSX(serverUsers.map(user => (
       <li>
-        { user.status === 'online' ? <i>Online</i> : <i>Offline</i> }
-        <span>{`${ user.name }`}</span>
+        <ServerUser name={user.name} status={user.status}></ServerUser>
       </li>
     )))
-  }, [serverUsers]);
+  }, []);
 
   return (
       <ul>
@@ -30,4 +30,4 @@ const serverUserSideBar = () => {
   )
 }
 
-export default serverUserSideBar
+export default ServerUserSideBar
