@@ -142,10 +142,10 @@ const MainContent = () => {
   }, [messages])
 
   return (
-    <Container>
+    <Container className='main-container'>
       {/* Second row - will contain rooms/DMs as well as main content */}
       <Row className='top-row'>
-        <Col className='col-2'>
+        <Col className='col-3 left-side-options'>
           <div className='left-side-nav'>
             <Row>
               <Col><h4 className='roomsHeader'>Rooms</h4></Col>
@@ -187,6 +187,7 @@ const MainContent = () => {
           </div>
           {/* Ayoub this is your spot to add active users */}
             <Row className='active-users'>
+            <h4 className='roomsHeader'>Users</h4>
                 <ServerUserSideBar />
             </Row>
         </Col>
