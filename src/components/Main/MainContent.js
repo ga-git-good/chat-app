@@ -14,7 +14,7 @@ import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
 import messageHistory from '../../api/messageHistory'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -23,7 +23,6 @@ const AlwaysScrollToBottom = () => {
 }
 
 const MainContent = () => {
-  console.log('maincontent reloaded')
   const { state, dispatch } = useContext(AppContext)
 
   const [messages, setMessages] = useState([])
@@ -37,23 +36,11 @@ const MainContent = () => {
   const [changedRoom, setChangedRoom] = useState('')
   const [currentRoomName, setCurrentRoomName] = useState('')
   const [changedRoomName, setChangedRoomName] = useState('')
-  //const [updatedCache, setUpdatedCache] = useState(true)
-
-  // useEffect(() => {
-  //   updateCache(serverUsers, cachedPfps, dispatch)
-  // }, [serverUsers])
 
   useEffect(() => {
-    // console.log('fetching pfps')
-    // console.log('already cached userNames:')
-    // console.log(cachedPfps)
     if (!serverUsers || serverUsers.length === 0) {
       return
     }
-    // console.log('serverUsers:')
-    // console.log(serverUsers)
-    // console.log('cached pfps:')
-    // console.log(cachedPfps)
     updateCache(serverUsers, cachedPfps, dispatch).then(
 			(result) => {
 				if (result) {
@@ -74,11 +61,14 @@ const MainContent = () => {
   const handleDelete = (roomId) => {
     console.log(roomId)
     if (roomId) {
+      toast('Successfully deleted room!', {type: 'success'})
       const newRooms = rooms.filter(room => room._id !== roomId)
       dispatch({
         type: SET_ROOMS_ID,
         payload: newRooms
       })
+    } else {
+      toast('You may not delete that room.', {type: 'error'})
     }
     window.socket.removeEventListener('deleted', handleDelete)
   }
@@ -139,9 +129,6 @@ const MainContent = () => {
 
   useEffect(() => {
     if (rooms?.length > 0) {
-      console.log(rooms)
-      console.log(rooms[0].owner)
-      console.log(userId)
       setRoomsJSX(rooms.map(room => (
         <li className='room-list-item' key={`${room._id}`}>
           <a href='#' className='room-name-link' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
@@ -151,26 +138,28 @@ const MainContent = () => {
     }
   }, [rooms])
 
-  useEffect(async () => {
+  const updateRooms = async () => {
+    console.log('updateRooms called')
     let newArray = []
-    const response = await showRooms(token)
-    const roomIntervalId = setInterval(() => showRooms(token), 8000)
-    window.roomIntervalId = roomIntervalId 
-    const existingRooms = response.data.room
-    //console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
-    if (!rooms || !rooms[0]) {
-      existingRooms.forEach(existingRoom => {
-        if (existingRoom.validUsers.includes(userId)) {
-          newArray.push(existingRoom)
-        }
-      })
-      // setCurrentRoom(newArray[0]._id)
-    }
-    console.log(newArray)
-    dispatch({
-      type: SET_ROOMS_ID,
-      payload: newArray
-    })
+		const response = await showRooms(token)
+		const existingRooms = response.data.room
+		//console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
+		existingRooms.forEach((existingRoom) => {
+			if (existingRoom.validUsers.includes(userId)) {
+				newArray.push(existingRoom)
+			}
+		})
+		dispatch({
+			type: SET_ROOMS_ID,
+			payload: newArray,
+		})
+  }
+
+  useEffect(async () => {
+    console.log('running once:')
+    updateRooms()
+    const roomIntervalId = setInterval(updateRooms, 5000)
+    window.roomIntervalId = roomIntervalId
     window.addEventListener("beforeunload", () => {
       goOffline(token, userId)
     }, false);
@@ -179,7 +168,6 @@ const MainContent = () => {
   const onCreateRoom = async (event, func) => {
     event.preventDefault()
     let newArray = []
-    console.log(roomName, state.userId)
     const room = await createRoom(roomName, userId, token)
     if (rooms.length > 0) {
         func()
@@ -194,17 +182,13 @@ const MainContent = () => {
       payload: newArray
     })
     // state.rooms.push(room.data.room)
-    console.log(room)
   }
 
   const newMessage = (msg) => {
-    console.log('setting new msg')
-    console.log(msg)
     setNewMessageObj(msg)
   }
 
   useEffect(() => {
-    console.log('hit new message useeffect')
     if (!newMessageObj) {
       return
     }
@@ -302,7 +286,7 @@ const MainContent = () => {
                 <AlwaysScrollToBottom />
               </ul>
             </section>
-            <Input received={newMessage} room={currentRoom} deleteRoom={deleteRoom} />
+            <Input received={newMessage} room={currentRoom} />
             {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>

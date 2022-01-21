@@ -4,6 +4,7 @@ import { SET_SERVER_USERS } from '../context/action-types'
 import ShowServerUsers from '../api/ShowServerUsers'
 import ServerUser from './ServerUser'
 import addUserToRoom from '../api/addUser'
+import { toast } from 'react-toastify'
 
 const ServerUserSideBar = ({currentRoom}) => {
   const { state, dispatch } = useContext(AppContext)
@@ -23,9 +24,19 @@ const ServerUserSideBar = ({currentRoom}) => {
     
   // }, []);
 
-  const addUser = (userId) => {
-    console.log(`adding user ${userId} to room ${currentRoom}`)
-    addUserToRoom(currentRoom, userId, token)
+  const addUser = async (userId) => {
+    if (!currentRoom || currentRoom === '') {
+      toast('Please select a room in order to add users.')
+      return
+    }
+    const res = await addUserToRoom(currentRoom, userId, token)
+    if (res.status === 201) {
+      toast('User successfully added to room!', {type: 'success'})
+      return
+    } else {
+      toast('You may not add a user to that room.', {type: 'error'})
+      return
+    }
   }
 
   const updateUsers = async () => {

@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-// {setRoomName, onCreateRoom, roomName }
 
 const ModaleCreateRoom = ({setRoomName, onCreateRoom, roomName }) => {
-  console.log("props", "sasasaddsdasdasdsad mainContent");
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)

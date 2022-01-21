@@ -18,6 +18,16 @@ export const signUp = (credentials) => {
   })
 }
 
+export const deleteUser = (token) => {
+  return axios({
+		method: 'DELETE',
+		url: apiUrl + '/delete-account',
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	})
+}
+
 export const uploadPfp = async (file, userName) => {
   const buffer = file
   console.log('buffer:')
