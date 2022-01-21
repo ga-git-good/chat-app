@@ -7,6 +7,7 @@ import { ALL_TYPES } from '../context/action-types'
 
 
 import Modale from './Modal'
+import UploadImageModal from './UploadImageModal'
 import ChangePassword from '../components/auth/ChangePassword'
 import { toast } from 'react-toastify'
 
@@ -37,18 +38,19 @@ const DropDown = ({user}) => {
   const handleShow = () => setShow(true)
 
   return (
-		<>
-			<Dropdown className='parent-dropdown-wrapper'>
-				<Dropdown.Toggle className='dropdown-username'>
-					{user.userName}
-				</Dropdown.Toggle>
+    <>
+    <Dropdown className='parent-dropdown-wrapper'>
+        <Dropdown.Toggle  className='dropdown-username'>
+          {user.userName}
+        </Dropdown.Toggle>
 
-				<Dropdown.Menu className='dropdown-menu'>
-					<NavLink to='/' className='nav-link'>
-						Upload image
-					</NavLink>
-
-					<Modale />
+        <Dropdown.Menu className='dropdown-menu' >
+          {/* <NavLink to='/upload-image' className='nav-link'>
+            Upload image
+          </NavLink> */}
+          <UploadImageModal />
+          <Modale />
+          
 
 					<Dropdown.Divider className='divider' />
 					<NavLink to='/sign-out' className='nav-link'>
