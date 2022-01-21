@@ -58,7 +58,7 @@ const ServerUserSideBar = ({currentRoom}) => {
   }, [])
 
   useEffect(async () => {
-    console.log('server users: ', serverUsers)
+    //console.log('server users: ', serverUsers)
     if (serverUsers) {
       setServerUsersJSX(serverUsers.map(user => (
         <li key={user._id} className='user-list-item'>

@@ -44,7 +44,7 @@ const MainContent = () => {
     updateCache(serverUsers, cachedPfps, dispatch).then(
 			(result) => {
 				if (result) {
-					//console.log(getPfp('12345'))
+					////console.log(getPfp('12345'))
 				} else {
 					console.error('failed to cache images')
 				}
@@ -53,13 +53,13 @@ const MainContent = () => {
   }, [serverUsers])
 
   const changeRoom = (roomId, roomName) => {
-    console.log('changing room to: ', roomId)
+    ////console.log('changing room to: ', roomId)
     setChangedRoom(roomId)
     setChangedRoomName(roomName)
   }
 
   const handleDelete = (roomId) => {
-    console.log(roomId)
+    ////console.log(roomId)
     if (roomId) {
       toast('Successfully deleted room!', {type: 'success'})
       const newRooms = rooms.filter(room => room._id !== roomId)
@@ -111,7 +111,7 @@ const MainContent = () => {
     if (currentRoom !== '') {
     messageHistory(token, currentRoom)
       .then(response => {
-        console.log('MESSAGE HISTORY')
+        //console.log('MESSAGE HISTORY')
         if (!response) {
           return
         }
@@ -120,8 +120,8 @@ const MainContent = () => {
           timestamp: message.sentAt,
           message: message.text
         }))
-        console.log('FETCHED HISTORY')
-        console.log(messageObjs)
+        //console.log('FETCHED HISTORY')
+        ////console.log(messageObjs)
         setMessages(messageObjs)
       })
     }
@@ -139,11 +139,11 @@ const MainContent = () => {
   }, [rooms])
 
   const updateRooms = async () => {
-    console.log('updateRooms called')
+    //console.log('updateRooms called')
     let newArray = []
 		const response = await showRooms(token)
 		const existingRooms = response.data.room
-		//console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
+		////console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
 		existingRooms.forEach((existingRoom) => {
 			if (existingRoom.validUsers.includes(userId)) {
 				newArray.push(existingRoom)
@@ -156,7 +156,7 @@ const MainContent = () => {
   }
 
   useEffect(async () => {
-    console.log('running once:')
+    //console.log('running once:')
     updateRooms()
     const roomIntervalId = setInterval(updateRooms, 5000)
     window.roomIntervalId = roomIntervalId

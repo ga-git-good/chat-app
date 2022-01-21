@@ -26,7 +26,7 @@ const MsgInput = ({received, room }) => {
     if (connected) {
       return
     }
-    console.log('connecting socket')
+    //console.log('connecting socket')
     const socket = io(apiUrl, {
 			withCredentials: false,
 			query: {
@@ -36,20 +36,20 @@ const MsgInput = ({received, room }) => {
 		})
     socket.on('connect', () => {
       window.socket = socket
-      console.log('connected!')
+      //console.log('connected!')
     })
     socket.on('loggedin', (res) => {
       if (res) {
         setSocketAuthed(true)
         socket.on('message', received)
         // socket.on('deleted', res => {
-        //   console.log(res)
+        //   //console.log(res)
         // })
         socket.on('unauthorized', () => {
           toast('Unauthorized', {type: 'error'})
         })
       } else {
-        console.log('failed to log in')
+        //console.log('failed to log in')
         toast('failed to log in')
       }
     })
@@ -61,7 +61,7 @@ const MsgInput = ({received, room }) => {
   // Join a room
   // TODO
   useEffect(() => {
-    console.log('seeing this pop up here as well', room)
+    //console.log('seeing this pop up here as well', room)
     if (room) {
       socket.emit('join', { roomId: room })
     }
@@ -79,8 +79,8 @@ const MsgInput = ({received, room }) => {
       userName: userName
 		}
     socket.emit('send-message', msg)
-    console.log('sent message: ')
-    console.log(msg)
+    //console.log('sent message: ')
+    //console.log(msg)
     setMessageText('')
   }
 

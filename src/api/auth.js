@@ -30,8 +30,8 @@ export const deleteUser = (token) => {
 
 export const uploadPfp = async (file, userName) => {
   const buffer = file
-  console.log('buffer:')
-  console.log(buffer)
+  //console.log('buffer:')
+  //console.log(buffer)
   //console.log(buffer)
   const formData = new FormData()
 	formData.append('pfp', buffer)
@@ -39,7 +39,7 @@ export const uploadPfp = async (file, userName) => {
 		method: 'POST',
 		body: formData,
 	}
-  console.log(options)
+  //console.log(options)
 	return fetch(apiUrl + '/upload/' + userName, options)
 }
 
@@ -67,7 +67,7 @@ export const signOut = (token) => {
 }
 
 export const changePassword = (passwords, token) => {
-  console.log(passwords, token,"Hello thereerer");
+  //console.log(passwords, token,"Hello thereerer");
   return axios({
     url: apiUrl + '/change-password/',
     method: 'PATCH',

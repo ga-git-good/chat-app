@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 const RoomTitle = ({ room }) => {
 
   useEffect(() => {
-    console.log('in room: ', room)
+    //console.log('in room: ', room)
   }, [room])
 
   return (
