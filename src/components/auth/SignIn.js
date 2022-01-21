@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import AppContext from '../../context/context'
 
-import { toast } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import { SET_TOKEN, SET_USER_ID, SET_SIGNEDIN, SET_USERNAME, SET_ROOMS_ID } from '../../context/action-types'
 import { signIn } from '../../api/auth'
 import { Form, Button } from 'react-bootstrap'
@@ -47,14 +47,24 @@ const SignIn = () => {
                 payload: res.data.user.rooms
             })
         })
-        .then(() =>{
-          // toast alert here
-        })
-        .then(() => history.push('/'))
+        // .then(() =>{
+        //   // toast alert here
+        // })
+        // .then(() => history.push('/'))
         .catch((error) => {
-          setUsername('')
-          setPassword('')
+          console.log(error)
+          // setUsername('')
+          // setPassword('')
           //error toast here
+          toast.error('incorrect username or password', {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            })
         })
     }
 

@@ -11,6 +11,7 @@ const SignOut = () => {
     const { loggedIn, token } = state
 
     useEffect(() => {
+        clearInterval(window.intervalId)
         if (!loggedIn) {
             return
         }

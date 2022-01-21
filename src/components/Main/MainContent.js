@@ -14,6 +14,7 @@ import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
 import messageHistory from '../../api/messageHistory'
+import { ToastContainer } from 'react-toastify'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -70,6 +71,28 @@ const MainContent = () => {
     setChangedRoomName(roomName)
   }
 
+  const handleDelete = (roomId) => {
+    console.log(roomId)
+    if (roomId) {
+      const newRooms = rooms.filter(room => room._id !== roomId)
+      dispatch({
+        type: SET_ROOMS_ID,
+        payload: newRooms
+      })
+    }
+    window.socket.removeEventListener('deleted', handleDelete)
+  }
+
+  const deleteRoom = (roomId) => {
+    const data = {
+      roomId: roomId,
+			timestamp: new Date().toLocaleString(),
+      userId: userId
+    }
+    window.socket.emit('delete-room', data)
+    window.socket.addEventListener('deleted', handleDelete)
+  }
+
   const showActiveUsers = async () => {
       let usersArray
       const response = await showRoomUsers(token, currentRoom)
@@ -95,29 +118,34 @@ const MainContent = () => {
   }, [changedRoom])
 
   useEffect(() => {
+    if (currentRoom) {
     messageHistory(token, currentRoom)
-    .then(response => {
-      console.log('MESSAGE HISTORY')
-      if (!response) {
-        return
-      }
-      const messageObjs = response.map(message => ({
-        userName: message.userName,
-        timestamp: message.sentAt,
-        message: message.text
-      }))
-      console.log('FETCHED HISTORY')
-      console.log(messageObjs)
-      setMessages(messageObjs)
-    })
+      .then(response => {
+        console.log('MESSAGE HISTORY')
+        if (!response) {
+          return
+        }
+        const messageObjs = response.map(message => ({
+          userName: message.userName,
+          timestamp: message.sentAt,
+          message: message.text
+        }))
+        console.log('FETCHED HISTORY')
+        console.log(messageObjs)
+        setMessages(messageObjs)
+      })
+    }
   }, [currentRoom])
 
   useEffect(() => {
-    if (rooms) {
+    if (rooms.length > 0) {
       console.log(rooms)
+      console.log(rooms[0].owner)
+      console.log(userId)
       setRoomsJSX(rooms.map(room => (
-        <li key={`${room._id}`}>
+        <li className='room-list-item' key={`${room._id}`}>
           <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
+          <img src="https://icongr.am/octicons/trash.svg?size=10&color=FFFFFF" onClick={() => deleteRoom(room._id) } />
         </li>
       )))
     }
@@ -165,8 +193,6 @@ const MainContent = () => {
     })
     // state.rooms.push(room.data.room)
     console.log(room)
-
-    
   }
 
   const newMessage = (msg) => {
@@ -202,11 +228,13 @@ const MainContent = () => {
 			{/* Second row - will contain rooms/DMs as well as main content */}
 			<Row className='top-row'>
 				<Col className='col-3 left-side-options'>
+          <h3 className='room-title-alt'>
+            <RoomTitle room={currentRoomName} />
+          </h3>
 					<div className='left-side-nav'>
-						<Row >
-							<Col>
-								<div style={{ position: 'fixed'}}>
-									<h4 className='roomsHeader' style={{width: "20vw"}}>
+						<Row className='room-top-level'>
+								<div className='rooms-div'>
+									<h4 className='roomsHeader'>
 										Rooms
 									</h4>
 
@@ -242,7 +270,7 @@ const MainContent = () => {
                  
                 {/* </Dropdown.Item> */}
               
-              </Col>
+              
             </Row>
 
            
@@ -268,11 +296,11 @@ const MainContent = () => {
           </Row>
             <section className='messages-window'>
               <ul className='messages'>
-                {currentRoom ? components : 'No room selected. Please join a room to start a conversation!'}
+                {currentRoom ? components : <li className='filler-text' > <div className='filler'>No room selected. Please join a room to start a conversation!</div></li>}
                 <AlwaysScrollToBottom />
               </ul>
             </section>
-            <Input received={newMessage} room={currentRoom} />
+            <Input received={newMessage} room={currentRoom} deleteRoom={deleteRoom} />
             {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>

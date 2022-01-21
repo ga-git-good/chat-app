@@ -3,6 +3,12 @@
 
 a {
   color: $borderColor;
+  text-decoration: none;
+  font-weight: bold;
+  vertical-align: middle;
+  &:hover {
+    color: $borderColor;
+  }
 }
 body {
   background-color: $backgroundColor;
@@ -54,6 +60,7 @@ input {
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 0;
   }
   
   .changePass-form-wrapper {
@@ -91,14 +98,20 @@ input {
   text-align: center;
   padding: .5rem;
   letter-spacing: 0.2rem;
-  color: white
+  color: white;
 }
 
 .create-room-button {
-  position: absolute;
-  top: 2vh;
-  left: 17vw;
-  height: 1.5rem;
+  // position: absolute;
+  // top: 2vh;
+  // left: 17vw;
+  height: 42px;
+  width: 3vw;
+  margin: 5px 5px 0 0;
+  float: right;
+  padding: 0 0.5rem;
+  display: flex;
+  align-content: center;
 }
 
 .createRoom-modal-title{
@@ -111,10 +124,12 @@ input {
 }
 
 .create-room-span {
-  position: absolute;
+  // position: absolute;
   font-size: 1.5rem;
-  top: -8px;
-  right: 0.3rem;
+  text-align: center;
+  margin: 0 auto;
+  // top: -8px;
+  // right: 0.3rem;
 }
 
 .main-container {
@@ -146,8 +161,19 @@ input {
   background-color: $inputBackground;
   border-color: $fontColor;
   width: 95%;
-  margin: .3rem;
+  margin: 1rem auto 1rem auto;
 }
+
+.filler {
+  margin-top: 30vh;
+  font-size: 30px;
+}
+
+.filler-text {
+  text-align: center;
+  height: 10rem;
+}
+
  /* Header componenet wrapper div */
 
 .header-wrapper {
@@ -198,6 +224,7 @@ input {
 }
 
 .left-side-options {
+  margin: 1rem 0;
   // width: 20%;
 }
 
@@ -206,11 +233,12 @@ input {
   margin-top: 2rem;
   margin-bottom: 1rem;
   margin-right: 0;
-  width: 100%;
+  // width: 18vw;
   border: 1px solid $borderColor;
   border-radius: 1rem;
   color: $fontColor;
   overflow-y: scroll;
+  padding: 0 !important;
 }
 
 .left-side-nav.col-2.col {
@@ -249,11 +277,15 @@ input {
   width: 90%;
   margin: 0.5rem;
   background: $inputBackground;
+  border: 1px solid $inputBackground
 }
 
 .message-input-window {
   margin: 1rem;
   border: 1px solid black;
+  background-color: #191919;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
 .message-layout {
@@ -273,19 +305,28 @@ input {
 .messages-window {
   height: 70vh;
   margin: 1rem;
-  border: 1px solid $borderColor;
+  // border: 1px solid $borderColor;
   overflow-y: scroll;
   background-color: $messageBoxBG;
   border-radius: 1rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 /*  Modal Companenet */
 
 .modal-body {
   background-color: $modelColorBG;
+  border-bottom-right-radius: 0.6rem;
+  border-bottom-left-radius: 0.6rem;
+  border: 1px solid white;
 }
 
 .modal-content{
+  // border-top-left-radius: 0.8rem;
+  // border-top-right-radius: 0.8rem;
+  border-radius: 0.8rem;
+  // border: 1px solid white;
   text-align: center;
   width: 70%;
   margin: 0 auto;
@@ -293,8 +334,10 @@ input {
 }
 
 .modal-header {
-  border-top-right-radius: .8rem;
-  border-top-left-radius: .8rem;
+  border-top-right-radius: .6rem;
+  border-top-left-radius: .6rem;
+  // border-radius: 0.6rem;
+  border: 1px solid white;
   padding: 1.5rem;
   background-color: $backgroundColor;
   display: flex;
@@ -324,17 +367,58 @@ background-color: $backgroundColor;
 }
 
 .roomsHeader {
-  padding: 1rem 0 1rem 1rem;
+  width: 100%;
+  // margin: 0.25rem !important;
+  padding: 1.5rem 1rem 1rem 1rem;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   background-color: $backgroundColor;
-  display: inline-block;
+  display: flex;
+  // position: 'fixed';
+}
+
+.rooms-div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+}
+
+.room-top-level {
+  width: 100%;
+  height: 8vh;
+  margin: 0;
 }
 
 .room-list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
   list-style-type: none;
-  margin-left: -1rem;
-  margin-top: 8vh;
+  text-decoration: none;
+  // height: 6vh;
+  margin-left: 1rem;
+  padding-left: 0;
+  border-radius: 2px;
+  vertical-align: middle;
+  
+}
+
+.room-list-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  vertical-align: middle;
+  justify-self: flex-start;
+  float: left;
+  transition: background-color 0.15s ease-in-out;
+  height: 5vh;
+  padding-left: 1rem;
+  &:hover {
+    background-color: #191919;
+  }
+  border-radius: 5px;
 }
 
 .room-name {
@@ -345,6 +429,11 @@ background-color: $backgroundColor;
 .room-title  {
   text-align: center;
   float: top;
+}
+
+.room-title-alt {
+  margin-bottom: -0.5rem;
+  color: transparent;
 }
 
 .signin-parent-wrapper {
@@ -489,6 +578,8 @@ width: 100%;
 ::-webkit-scrollbar-thumb{
   color: $buttonColor
 }
+
+::-webkit-scrollbar-corner {background-color: transparent;}
 
 // .top-row {
 //   margin: 0 auto;
