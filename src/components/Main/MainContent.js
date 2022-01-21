@@ -165,13 +165,14 @@ const MainContent = () => {
     }, false);
   }, [])
 
-  const onCreateRoom = async (event, func) => {
+  const onCreateRoom = async (event) => {
     event.preventDefault()
     let newArray = []
     const room = await createRoom(roomName, userId, token)
+    if (!room) {
+      return false
+    }
     if (rooms.length > 0) {
-        func()
-
       newArray = [...rooms]
       newArray.push(room.data.room)
     } else {
@@ -181,6 +182,7 @@ const MainContent = () => {
       type: SET_ROOMS_ID,
       payload: newArray
     })
+    return true
     // state.rooms.push(room.data.room)
   }
 
