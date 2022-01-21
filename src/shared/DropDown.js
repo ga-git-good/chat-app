@@ -3,6 +3,7 @@ import { NavLink, Route } from 'react-router-dom'
 import { Dropdown, Modal } from 'react-bootstrap'
 
 import Modale from './Modal'
+import UploadImageModal from './UploadImageModal'
 import ChangePassword from '../components/auth/ChangePassword'
 
 
@@ -20,10 +21,10 @@ const DropDown = ({user}) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu className='dropdown-menu' >
-          <NavLink to='/' className='nav-link'>
+          {/* <NavLink to='/upload-image' className='nav-link'>
             Upload image
-          </NavLink>
-
+          </NavLink> */}
+          <UploadImageModal />
           <Modale />
 
 
