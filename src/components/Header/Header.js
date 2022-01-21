@@ -38,7 +38,7 @@ const Header = () => {
     <div className='header-wrapper'>
       <div className='logo-wrapper'>
         <NavLink to='/' className='link'>
-          <span className='logo-text'>Chat APP</span>
+          <span className='logo-text'>Oui Chat</span>
         </NavLink>
       </div>
 
