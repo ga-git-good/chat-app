@@ -154,6 +154,8 @@ const MainContent = () => {
   useEffect(async () => {
     let newArray = []
     const response = await showRooms(token)
+    const roomIntervalId = setInterval(() => showRooms(token), 8000)
+    window.roomIntervalId = roomIntervalId 
     const existingRooms = response.data.room
     //console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
     if (!rooms || !rooms[0]) {
