@@ -19,7 +19,11 @@ const ModaleCreateRoom = ({setRoomName, onCreateRoom, roomName }) => {
           <Modal.Title className='createRoom-modal-title'>Create Room</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={(event)=> onCreateRoom(event,handleClose) }>
+          <Form onSubmit={(event)=> {
+            if (onCreateRoom(event)) {
+              setShow(false)
+            }
+          } }>
             <Form.Group controlId='room-name'>
               <Form.Control
                 required
