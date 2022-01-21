@@ -14,6 +14,7 @@ import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
 import messageHistory from '../../api/messageHistory'
+import { ToastContainer } from 'react-toastify'
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -95,28 +96,30 @@ const MainContent = () => {
   }, [changedRoom])
 
   useEffect(() => {
+    if (currentRoom) {
     messageHistory(token, currentRoom)
-    .then(response => {
-      console.log('MESSAGE HISTORY')
-      if (!response) {
-        return
-      }
-      const messageObjs = response.map(message => ({
-        userName: message.userName,
-        timestamp: message.sentAt,
-        message: message.text
-      }))
-      console.log('FETCHED HISTORY')
-      console.log(messageObjs)
-      setMessages(messageObjs)
-    })
+      .then(response => {
+        console.log('MESSAGE HISTORY')
+        if (!response) {
+          return
+        }
+        const messageObjs = response.map(message => ({
+          userName: message.userName,
+          timestamp: message.sentAt,
+          message: message.text
+        }))
+        console.log('FETCHED HISTORY')
+        console.log(messageObjs)
+        setMessages(messageObjs)
+      })
+    }
   }, [currentRoom])
 
   useEffect(() => {
     if (rooms) {
       console.log(rooms)
       setRoomsJSX(rooms.map(room => (
-        <li key={`${room._id}`}>
+        <li className='room-list-item' key={`${room._id}`}>
           <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
         </li>
       )))
@@ -202,11 +205,13 @@ const MainContent = () => {
 			{/* Second row - will contain rooms/DMs as well as main content */}
 			<Row className='top-row'>
 				<Col className='col-3 left-side-options'>
+          <h3 className='room-title-alt'>
+            <RoomTitle room={currentRoomName} />
+          </h3>
 					<div className='left-side-nav'>
-						<Row >
-							<Col>
-								<div style={{ position: 'fixed'}}>
-									<h4 className='roomsHeader' style={{width: "20vw"}}>
+						<Row className='room-top-level'>
+								<div className='rooms-div'>
+									<h4 className='roomsHeader'>
 										Rooms
 									</h4>
 
@@ -242,7 +247,7 @@ const MainContent = () => {
                  
                 {/* </Dropdown.Item> */}
               
-              </Col>
+              
             </Row>
 
            
@@ -268,7 +273,7 @@ const MainContent = () => {
           </Row>
             <section className='messages-window'>
               <ul className='messages'>
-                {currentRoom ? components : 'No room selected. Please join a room to start a conversation!'}
+                {currentRoom ? components : <li className='filler-text' > <div className='filler'>No room selected. Please join a room to start a conversation!</div></li>}
                 <AlwaysScrollToBottom />
               </ul>
             </section>

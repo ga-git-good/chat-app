@@ -41,7 +41,9 @@ const ServerUserSideBar = ({currentRoom}) => {
   }
 
   useEffect(() => {
-    setInterval(updateUsers, 5000)
+    updateUsers()
+    const intervalId = setInterval(updateUsers, 5000)
+    window.intervalId = intervalId
   }, [])
 
   useEffect(async () => {
