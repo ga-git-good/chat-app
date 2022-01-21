@@ -71,6 +71,28 @@ const MainContent = () => {
     setChangedRoomName(roomName)
   }
 
+  const handleDelete = (roomId) => {
+    console.log(roomId)
+    if (roomId) {
+      const newRooms = rooms.filter(room => room._id !== roomId)
+      dispatch({
+        type: SET_ROOMS_ID,
+        payload: newRooms
+      })
+    }
+    window.socket.removeEventListener('deleted', handleDelete)
+  }
+
+  const deleteRoom = (roomId) => {
+    const data = {
+      roomId: roomId,
+			timestamp: new Date().toLocaleString(),
+      userId: userId
+    }
+    window.socket.emit('delete-room', data)
+    window.socket.addEventListener('deleted', handleDelete)
+  }
+
   const showActiveUsers = async () => {
       let usersArray
       const response = await showRoomUsers(token, currentRoom)
@@ -116,11 +138,14 @@ const MainContent = () => {
   }, [currentRoom])
 
   useEffect(() => {
-    if (rooms) {
+    if (rooms.length > 0) {
       console.log(rooms)
+      console.log(rooms[0].owner)
+      console.log(userId)
       setRoomsJSX(rooms.map(room => (
         <li className='room-list-item' key={`${room._id}`}>
           <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
+          <img src="https://icongr.am/octicons/trash.svg?size=10&color=FFFFFF" onClick={() => deleteRoom(room._id) } />
         </li>
       )))
     }
@@ -168,8 +193,6 @@ const MainContent = () => {
     })
     // state.rooms.push(room.data.room)
     console.log(room)
-
-    
   }
 
   const newMessage = (msg) => {
@@ -277,7 +300,7 @@ const MainContent = () => {
                 <AlwaysScrollToBottom />
               </ul>
             </section>
-            <Input received={newMessage} room={currentRoom} />
+            <Input received={newMessage} room={currentRoom} deleteRoom={deleteRoom} />
             {/* <form className='message-input-window'>
               <input className='message-input' />
               <button className='send-message'>Send</button>

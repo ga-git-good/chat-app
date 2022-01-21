@@ -4,7 +4,9 @@ import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
 import apiUrl from '../../apiConfig';
 
-const MsgInput = ({received, room}) => {
+
+
+const MsgInput = ({received, room, deleteRoom }) => {
   const { state, dispatch } = useContext(AppContext)
   const { loggedIn, userId, token, userName } = state
 
@@ -32,12 +34,16 @@ const MsgInput = ({received, room}) => {
 			},
 		})
     socket.on('connect', () => {
+      window.socket = socket
       console.log('connected!')
     })
     socket.on('loggedin', (res) => {
       if (res) {
         setSocketAuthed(true)
         socket.on('message', received)
+        // socket.on('deleted', res => {
+        //   console.log(res)
+        // })
       } else {
         console.log('failed to log in')
         alert('failed to log in')
@@ -77,12 +83,10 @@ const MsgInput = ({received, room}) => {
   return (
 		<>
 			{room !== '' ? 
-      
-        <form className='message-input-window' onSubmit={sendMessage}>
-          <input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
-          <button type='submit' className='send-message'>Send</button>
-        </form>
-        
+          <form className='message-input-window' onSubmit={sendMessage}>
+            <input value={messageText} onChange={(e) => setMessageText(e.target.value)} className='message-input' />
+            <button type='submit' className='send-message'>Send</button>
+          </form>
        : '' }
     </>
 		
