@@ -55,14 +55,14 @@ Produce documentation on Github:
 √   Link to wireframes and user stories
       
   WireFrame:
-    !['WireFrame'](Photos/image.png)
+    !['WireFrame'](https://imgur.com/gallery/z8FGrKU)
   
 *Your back-end repo's README should also have:*
 
 √ Link to Entity Relationship Diagram (ERD).
 
   ERD:
-    !['ERD'](projects/chat-app-project/chat-app-server/Photos/Chat-ERD.png)
+    !['ERD'](https://imgur.com/a/z8FGrKU)
 
 √ A catalog of routes (paths and methods) that the API expects.
   *express routes:
