@@ -32,12 +32,10 @@ const UploadImage = ({ closeModal }) => {
   return !loggedIn ? (
     <Redirect to='/' />
   ) : (
-    <div className='row signup-parent-wrapper'>
-      <div className='signup-form-wrapper'>
-        <h3 className='signup-header3'>Change Profile Image</h3>
-          <Form className='signup-form' onSubmit={onChangePfp}>
+    <div className='row sigin-parent-wrapper'>
+      <div className='sigin-form-wrapper'>
+          <Form className='signin-form' onSubmit={onChangePfp}>
           <Form.Group>
-							<Form.Label>Profile Picture</Form.Label>
 							<Form.Control
 								type='file'
 								name='image'
