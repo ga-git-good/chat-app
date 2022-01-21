@@ -138,7 +138,7 @@ const MainContent = () => {
   }, [currentRoom])
 
   useEffect(() => {
-    if (rooms.length > 0) {
+    if (rooms?.length > 0) {
       console.log(rooms)
       console.log(rooms[0].owner)
       console.log(userId)
