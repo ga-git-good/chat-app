@@ -12,6 +12,7 @@ const SignOut = () => {
 
     useEffect(() => {
         clearInterval(window.intervalId)
+        clearInterval(window.roomIntervalId)
         if (!loggedIn) {
             return
         }

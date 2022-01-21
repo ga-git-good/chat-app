@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
-// {setRoomName, onCreateRoom, roomName }
 
 const ModaleCreateRoom = ({setRoomName, onCreateRoom, roomName }) => {
-  console.log("props", "sasasaddsdasdasdsad mainContent");
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
@@ -19,7 +17,7 @@ const ModaleCreateRoom = ({setRoomName, onCreateRoom, roomName }) => {
           <Modal.Title className='createRoom-modal-title'>Create Room</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={(event)=> onCreateRoom(event,handleClose) }>
+          <Form onSubmit={(event)=> onCreateRoom(event.handleClose) }>
             <Form.Group controlId='room-name'>
               <Form.Control
                 required

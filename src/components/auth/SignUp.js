@@ -3,6 +3,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 import AppContext from '../../context/context'
 import { SET_TOKEN, SET_USER_ID } from '../../context/action-types'
 import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { signUp, signIn, uploadPfp } from '../../api/auth'
 
@@ -55,7 +56,7 @@ const SignUp = () => {
                 })
             })
             .then(() =>{
-                // success toast here
+                toast(`User ${username} successfully created!`, {type: 'success'})
             })
             .then(() => history.push('/'))
             .catch((error) => {
