@@ -16,7 +16,7 @@ const UploadImageModal = ({title}) => {
       </NavLink>
 
       <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
+        <Modal.Header >
           <Modal.Title className='changePass-modal-title'>Change Profile Image</Modal.Title>
         </Modal.Header>
         <Modal.Body>
