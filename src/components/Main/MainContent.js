@@ -108,7 +108,7 @@ const MainContent = () => {
       setRoomsJSX(rooms.map(room => (
         <li key={`${room._id}`}>
           <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
-          <img src="https://icongr.am/octicons/trash.svg?size=10&color=FFFFFF" onClick={() => deleteRoom(room.name) } />
+          <img src="https://icongr.am/octicons/trash.svg?size=10&color=FFFFFF" onClick={() => deleteRoom(room._id) } />
         </li>
       )))
     }
