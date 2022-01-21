@@ -41,6 +41,9 @@ const MsgInput = ({received, room, deleteRoom }) => {
       if (res) {
         setSocketAuthed(true)
         socket.on('message', received)
+        // socket.on('deleted', res => {
+        //   console.log(res)
+        // })
       } else {
         console.log('failed to log in')
         alert('failed to log in')

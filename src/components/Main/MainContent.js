@@ -70,6 +70,17 @@ const MainContent = () => {
     setChangedRoomName(roomName)
   }
 
+  const handleDelete = (roomId) => {
+    console.log(roomId)
+    if (roomId) {
+      const newRooms = rooms.filter(room => room._id !== roomId)
+      dispatch({
+        type: SET_ROOMS_ID,
+        payload: newRooms
+      })
+    }
+  }
+
   const deleteRoom = (roomId) => {
     const data = {
       roomId: roomId,
@@ -77,6 +88,7 @@ const MainContent = () => {
       userId: userId
     }
     window.socket.emit('delete-room', data)
+    window.socket.addEventListener('deleted', handleDelete)
   }
 
   const showActiveUsers = async () => {
@@ -122,7 +134,7 @@ const MainContent = () => {
   }, [currentRoom])
 
   useEffect(() => {
-    if (rooms) {
+    if (rooms.length > 0) {
       console.log(rooms)
       console.log(rooms[0].owner)
       console.log(userId)
@@ -177,8 +189,6 @@ const MainContent = () => {
     })
     // state.rooms.push(room.data.room)
     console.log(room)
-
-    
   }
 
   const newMessage = (msg) => {
