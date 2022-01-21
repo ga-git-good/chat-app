@@ -7,9 +7,9 @@ const timeStampStyle = {
 }
 
 const Message = (props) => {
-	console.log('imgurl:')
+	//console.log('imgurl:')
 	const imgUrl = apiUrl + '/img/' + props.userName
-	console.log(imgUrl)
+	//console.log(imgUrl)
   return (
 		<div className='message-layout'>
 			<img col='1' className='userImage' src={getPfp(props.userName)} />

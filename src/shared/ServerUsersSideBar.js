@@ -53,12 +53,12 @@ const ServerUserSideBar = ({currentRoom}) => {
 
   useEffect(() => {
     updateUsers()
-    const intervalId = setInterval(updateUsers, 5000)
-    window.intervalId = intervalId
+    // const intervalId = setInterval(updateUsers, 5000)
+    // window.intervalId = intervalId
   }, [])
 
   useEffect(async () => {
-    console.log('server users: ', serverUsers)
+    //console.log('server users: ', serverUsers)
     if (serverUsers) {
       setServerUsersJSX(serverUsers.map(user => (
         <li key={user._id} className='user-list-item'>

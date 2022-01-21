@@ -22,7 +22,7 @@ const SignOut = () => {
             })
             .finally(() => {
                 ALL_TYPES.forEach((type) => {
-                    console.log(type)
+                    //console.log(type)
                     dispatch({
                         type: type,
                         payload: null,

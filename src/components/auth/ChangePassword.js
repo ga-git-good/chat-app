@@ -25,7 +25,7 @@ const ChangePassword = ({closeModal}) => {
         closeModal()
         // put toast here
         
-        console.log(props,  "kaskdakddkadasndakdaksdkandakdsd");
+        //console.log(props,  "kaskdakddkadasndakdaksdkandakdsd");
         
         })
         .then(() => history.push('/'))

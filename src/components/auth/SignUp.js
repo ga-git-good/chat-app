@@ -29,13 +29,13 @@ const SignUp = () => {
 
     const onSignUp = async (e) => {
         e.preventDefault()
-        console.log(imageRef.current)
-        console.log(imageRef.current.files)
+        //console.log(imageRef.current)
+        //console.log(imageRef.current.files)
         //let resizedImage = await readAndCompressImage(imageRef.current.files[0], imgConfig)
         // const data = new FormData(e.target)
         const file = imageRef.current.files[0]
         const type = file.name.split('.').pop()
-        console.log(type)
+        //console.log(type)
         const apiObj = {
             email: email,
             userName: username,
