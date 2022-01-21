@@ -8,12 +8,17 @@ import RoomTitle from './RoomTitle'
 import createRoom from '../../api/CreateRoom'
 import showRooms from '../../api/ShowRooms'
 import showRoomUsers from '../../api/ShowRoomUsers'
+import goOffline from '../../api/GoOffline'
 import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
+<<<<<<< HEAD
 import { io } from 'socket.io-client'
 import apiUrl from '../../apiConfig';
+=======
+import messageHistory from '../../api/messageHistory'
+>>>>>>> dev
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
@@ -43,9 +48,12 @@ const MainContent = () => {
   // }, [serverUsers])
 
   useEffect(() => {
-    console.log('fetching pfps')
-    console.log('already cached userNames:')
-    console.log(cachedPfps)
+    // console.log('fetching pfps')
+    // console.log('already cached userNames:')
+    // console.log(cachedPfps)
+    if (!serverUsers || serverUsers.length === 0) {
+      return
+    }
     // console.log('serverUsers:')
     // console.log(serverUsers)
     // console.log('cached pfps:')
@@ -84,24 +92,42 @@ const MainContent = () => {
   }
 
   useEffect(() => {
-    console.log('room has been changed')
+    //console.log('room has been changed')
     if (changedRoom === currentRoom) {
       return
     } else {
-      console.log('changed room: ', changedRoom)
+      //console.log('changed room: ', changedRoom)
       setMessages([])
       setCurrentRoom(changedRoom)
       setCurrentRoomName(changedRoomName)
-      showActiveUsers()
-        .then(usersArray => {
-          setRoomUsersJSX(usersArray.map(user => (
-            <li>{`${ user.name }`}</li>
-          )))})
+      // showActiveUsers()
+      //   .then(usersArray => {
+      //     setRoomUsersJSX(usersArray.map(user => (
+      //       <li>{`${ user.name }`}</li>
+      //     )))})
     }
   }, [changedRoom])
 
   useEffect(() => {
-    if (rooms.length > 0) {
+    messageHistory(token, currentRoom)
+    .then(response => {
+      console.log('MESSAGE HISTORY')
+      if (!response) {
+        return
+      }
+      const messageObjs = response.map(message => ({
+        userName: message.userName,
+        timestamp: message.sentAt,
+        message: message.text
+      }))
+      console.log('FETCHED HISTORY')
+      console.log(messageObjs)
+      setMessages(messageObjs)
+    })
+  }, [currentRoom])
+
+  useEffect(() => {
+    if (rooms) {
       console.log(rooms)
       console.log(rooms[0].owner)
       console.log(userId)
@@ -118,7 +144,7 @@ const MainContent = () => {
     let newArray = []
     const response = await showRooms(token)
     const existingRooms = response.data.room
-    console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
+    //console.log('existing rooms: ', existingRooms, 'saved rooms: ', rooms)
     if (!rooms || !rooms[0]) {
       existingRooms.forEach(existingRoom => {
         if (existingRoom.validUsers.includes(userId)) {
@@ -132,6 +158,9 @@ const MainContent = () => {
       type: SET_ROOMS_ID,
       payload: newArray
     })
+    window.addEventListener("beforeunload", () => {
+      goOffline(token, userId)
+    }, false);
   }, [])
 
   const onCreateRoom = async (event, func) => {
@@ -186,28 +215,32 @@ const MainContent = () => {
   }, [messages])
 
   return (
-    <Container className='main-container'>
-      {/* Second row - will contain rooms/DMs as well as main content */}
-      <Row className='top-row'>
-        <Col className='col-3 left-side-options'>
-          <div className='left-side-nav'>
-            <Row>
-           
-              <Col style={{position:"relative"}}>
-
-              <Col><h4 className='roomsHeader'>Rooms</h4></Col>
-              <ModaleCreateRoom onCreateRoom ={onCreateRoom} roomName={roomName} setRoomName={setRoomName}/>
-
-
-
-              {/* <Button className='create-room-button m-3'> Create Room</Button> */}
-             
-
-                {/* <Dropdown.Item eventKey='1' as='form' > */}
+		<Container className='main-container'>
+			{/* Second row - will contain rooms/DMs as well as main content */}
+			<Row className='top-row'>
+				<Col className='col-3 left-side-options'>
+					<div className='left-side-nav'>
+						<Row >
+							<Col>
+								<div style={{ position: 'fixed'}}>
+									<h4 className='roomsHeader' style={{width: "20vw"}}>
+										Rooms
+									</h4>
 
 
+                  <ModaleCreateRoom
+											onCreateRoom={onCreateRoom}
+											roomName={roomName}
+											setRoomName={setRoomName}
+									/>
 
-                  {/* <Form onSubmit={onCreateRoom} className='d-none'>
+                  
+								</div>
+								{/* <Button className='create-room-button m-3'> Create Room</Button> */}
+
+								{/* <Dropdown.Item eventKey='1' as='form' > */}
+
+								{/* <Form onSubmit={onCreateRoom} className='d-none'>
                       <Form.Group controlId='room-name'>
                         <Form.Control 
                         required
@@ -220,7 +253,6 @@ const MainContent = () => {
                         <button type='submit'>Create</button>
                       </Form.Group>
                   </Form> */}
-
 
 
 
@@ -243,8 +275,8 @@ const MainContent = () => {
           </div>
           {/* Ayoub this is your spot to add active users */}
             <Row className='active-users'>
-            <h4 className='roomsHeader'>Users</h4>
-                <ServerUserSideBar />
+                <h4 className='roomsHeader'>Users</h4>
+                <ServerUserSideBar currentRoom={currentRoom} />
             </Row>
         </Col>
         <Col className='main-content col-9'>
@@ -262,10 +294,10 @@ const MainContent = () => {
               <input className='message-input' />
               <button className='send-message'>Send</button>
             </form> */}
-        </Col>
-      </Row>
-    </Container>
-  )
+				</Col>
+			</Row>
+		</Container>
+	)
 }
 
 export default MainContent
