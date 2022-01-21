@@ -118,7 +118,7 @@ const MainContent = () => {
   }, [changedRoom])
 
   useEffect(() => {
-    if (currentRoom) {
+    if (currentRoom !== '') {
     messageHistory(token, currentRoom)
       .then(response => {
         console.log('MESSAGE HISTORY')
@@ -144,8 +144,8 @@ const MainContent = () => {
       console.log(userId)
       setRoomsJSX(rooms.map(room => (
         <li className='room-list-item' key={`${room._id}`}>
-          <a href='#' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
-          <img src="https://icongr.am/octicons/trash.svg?size=10&color=FFFFFF" onClick={() => deleteRoom(room._id) } />
+          <a href='#' className='room-name-link' onClick={() => changeRoom(room._id, room.name)}>{`${room.name}`}</a>
+          <img className='trash' src="https://icongr.am/octicons/trash.svg?size=16&color=FFFFFF" onClick={() => deleteRoom(room._id) } />
         </li>
       )))
     }

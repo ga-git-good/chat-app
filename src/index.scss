@@ -426,6 +426,10 @@ background-color: $backgroundColor;
   align-content: center;
 }
 
+.room-name-link {
+  width: 90%;
+}
+
 .room-title  {
   text-align: center;
   float: top;
@@ -522,6 +526,9 @@ width: 100%;
    color: $fontColor;
   }
 
+.trash {
+  
+}
 
 .userImage {
   height: 2.5rem;
