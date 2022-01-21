@@ -79,6 +79,7 @@ const MainContent = () => {
         payload: newRooms
       })
     }
+    window.socket.removeEventListener('deleted', handleDelete)
   }
 
   const deleteRoom = (roomId) => {
