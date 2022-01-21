@@ -13,12 +13,7 @@ import { SET_ROOMS_ID } from '../../context/action-types'
 import ServerUserSideBar from '../../shared/ServerUsersSideBar'
 import ModaleCreateRoom from '../../shared/CreateRoomModal'
 import { updateCache, getPfp } from '../../shared/updateCache'
-<<<<<<< HEAD
-import { io } from 'socket.io-client'
-import apiUrl from '../../apiConfig';
-=======
 import messageHistory from '../../api/messageHistory'
->>>>>>> dev
 
 const AlwaysScrollToBottom = () => {
 	const elementRef = createRef()
