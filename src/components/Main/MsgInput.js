@@ -3,10 +3,11 @@ import React, { useState, useEffect, useHistory, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import AppContext from "../../context/context";
 import apiUrl from '../../apiConfig';
+import { toast } from 'react-toastify';
 
 
 
-const MsgInput = ({received, room, deleteRoom }) => {
+const MsgInput = ({received, room }) => {
   const { state, dispatch } = useContext(AppContext)
   const { loggedIn, userId, token, userName } = state
 
@@ -44,9 +45,12 @@ const MsgInput = ({received, room, deleteRoom }) => {
         // socket.on('deleted', res => {
         //   console.log(res)
         // })
+        socket.on('unauthorized', () => {
+          toast('Unauthorized', {type: 'error'})
+        })
       } else {
         console.log('failed to log in')
-        alert('failed to log in')
+        toast('failed to log in')
       }
     })
     setSocket(socket)
