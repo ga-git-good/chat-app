@@ -65,7 +65,7 @@ const SignUp = () => {
                 setPassword('')
                 setPassConfirm('')
                 // toast error here
-								toast.error('One or more required fields missing', {
+								toast.error('Error signing up, please try again later', {
 									position: "bottom-center",
 									autoClose: 3000,
 									hideProgressBar: false,
