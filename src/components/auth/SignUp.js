@@ -65,6 +65,15 @@ const SignUp = () => {
                 setPassword('')
                 setPassConfirm('')
                 // toast error here
+								toast.error('One or more required fields missing', {
+									position: "bottom-center",
+									autoClose: 3000,
+									hideProgressBar: false,
+									closeOnClick: true,
+									pauseOnHover: true,
+									draggable: true,
+									progress: undefined,
+									})
             })
         }
 
@@ -122,6 +131,7 @@ const SignUp = () => {
 						<Form.Group>
 							<Form.Label>Profile Picture</Form.Label>
 							<Form.Control
+								required
 								type='file'
 								name='image'
 								id='imagePicker'
