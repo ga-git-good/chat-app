@@ -16,11 +16,11 @@ import { updateCache, getPfp } from '../../shared/updateCache'
 import messageHistory from '../../api/messageHistory'
 import { toast, ToastContainer } from 'react-toastify'
 
-const AlwaysScrollToBottom = () => {
-	const elementRef = createRef()
-	useEffect(() => elementRef.current.scrollIntoView({behavior: 'smooth'}))
-	return <div ref={elementRef} />
-}
+// const AlwaysScrollToBottom = () => {
+// 	const elementRef = createRef()
+// 	useEffect(() => elementRef.current.scrollIntoView({behavior: 'smooth'}))
+// 	return <div ref={elementRef} />
+// }
 
 const MainContent = () => {
   const { state, dispatch } = useContext(AppContext)
@@ -46,7 +46,7 @@ const MainContent = () => {
 				if (result) {
 					////console.log(getPfp('12345'))
 				} else {
-					console.error('failed to cache images')
+					// console.error('failed to cache images')
 				}
 			}
 		)
@@ -79,6 +79,8 @@ const MainContent = () => {
 			timestamp: new Date().toLocaleString(),
       userId: userId
     }
+    setCurrentRoom('')
+    setCurrentRoomName('')
     window.socket.emit('delete-room', data)
     window.socket.addEventListener('deleted', handleDelete)
   }
@@ -216,9 +218,9 @@ const MainContent = () => {
 			{/* Second row - will contain rooms/DMs as well as main content */}
 			<Row className='top-row'>
 				<Col className='col-3 left-side-options'>
-          <h3 className='room-title-alt'>
+          <div className='room-title-alt'>
             <RoomTitle room={currentRoomName} />
-          </h3>
+          </div>
 					<div className='left-side-nav'>
 						<Row className='room-top-level'>
 								<div className='rooms-div'>
@@ -285,7 +287,7 @@ const MainContent = () => {
             <section className='messages-window'>
               <ul className='messages'>
                 {currentRoom ? components : <li className='filler-text' > <div className='filler'>No room selected. Please join a room to start a conversation!</div></li>}
-                <AlwaysScrollToBottom />
+                {/* <AlwaysScrollToBottom /> */}
               </ul>
             </section>
             <Input received={newMessage} room={currentRoom} />

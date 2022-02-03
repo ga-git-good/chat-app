@@ -28,7 +28,7 @@ export const updateCache = async (serverUsers, cachedPfps, dispatch) => {
     })
     return true
   } catch(err) {
-    console.error(err)
+    // console.error(err)
     return false
   }
 }
